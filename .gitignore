@@ -1,0 +1,10 @@
+.vscode
+
+# dependencies
+client/node_modules
+
+# combined source file
+client/source_combine.js
+
+# combined lib file
+client/lib.js

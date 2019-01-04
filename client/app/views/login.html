@@ -1,0 +1,36 @@
+<div class="text-center full-height container" ng-controller="loginCtrl">
+    <div ng-if="!isfpmode" class="login-container">
+        <form name="loginForm" class="form-signin" novalidate>
+
+            <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input ng-required="true" name="email" ng-model="email" type="email" id="inputEmail" class="form-control"
+                placeholder="Email address" required="" autofocus="">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" ng-model="password" type="password" id="inputPassword" class="form-control"
+                placeholder="Password" required="">
+            <br />
+            <a href="javascript:void(0)" ng-click="setFpMode(true)">Forgot password</a>
+            <br />
+            <button ng-disabled="loginForm.$invalid" ng-click="doLogin()" class="btn btn-lg btn-primary btn-block" type="submit">Sign
+                in</button>
+
+        </form>
+    </div>
+
+    <div ng-if="isfpmode" class="fp-container">
+        <form name="fpForm" class="form-forgot-pass" novalidate>
+
+            <h1 class="h3 mb-3 font-weight-normal">Forgot Password</h1>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input ng-required="true" name="email" ng-model="email" type="email" id="inputEmail" class="form-control"
+                placeholder="Email address" required="" autofocus="">
+            <br />
+            <span ng-show="!!fpNotification">{{fpNotification}}</span>
+            <br/>
+            <button ng-disabled="fpForm.$invalid" ng-click="forgotPass()" class="btn btn-lg btn-primary btn-block" type="submit">Submit
+            </button>
+            <button ng-click="setFpMode(false)" class="btn btn-lg btn-danger btn-block" type="button">Back</button>
+        </form>
+    </div>
+</div>

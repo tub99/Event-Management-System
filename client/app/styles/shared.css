@@ -1,0 +1,30 @@
+
+.full-height{
+    height: 100%;
+}
+
+.login-container , .fp-container {
+    display: inline-block;
+    width: 38em;
+    position: relative;
+    top: 8em;
+}
+
+.login-container form , .fp-container form{
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.login-container input , .fp-container input {
+    margin-bottom: 6px;
+}
+
+.login-container #inputEmail.ng-dirty.ng-invalid , .fp-container #inputEmail.ng-dirty.ng-invalid {
+    border: 1px solid red; 
+}
+
+
+.login-container #inputPassword.ng-dirty.ng-invalid {
+    border: 1px solid red; 
+}

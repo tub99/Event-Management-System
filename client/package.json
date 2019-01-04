@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "description": "event managing application",
   "main": "app.js",
+  "dependencies": {
+    "angular": "1.7.x",
+    "angular-route": "1.7.x",
+    "bootstrap": "4.x",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.6"
+  },
   "scripts": {
+    "build": "node source_packer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "soumya",
