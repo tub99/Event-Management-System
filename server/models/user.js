@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    name: String,
-    password: String,
+    name: { type: String, required: true },
+    password: { type: String, required: true },
     type: { type: String, default: 'employee' },
     isPassWordReset: { type: Boolean, default: false },
 
