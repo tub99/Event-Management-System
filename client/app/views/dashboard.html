@@ -1,3 +1,19 @@
-<div ng-controller="dashboard">
-    <strong>Welcome!</strong>
+<div ng-controller="dashboardCtrl">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-12 mx-auto" style="padding: 0;">
+                <nav class="nav-container dark-bg">
+                    <ul class="nav nav-pills small justify-content-end" role="tablist">
+                        <li class="nav-item"><a class="nav-link nav-pills" ng-show="userType === 'manager'" ng-class="{'active': dashboardStates.employeeBtn}"
+                                ui-sref=".employee" role="tab">Employee</a></li>
+                        <li class="nav-item"><a class="nav-link nav-pills" ng-class="{'active':dashboardStates.eventsBtn}"
+                                ui-sref=".events" role="tab">Events</a></li>
+                    </ul>
+                </nav>
+                <div class="tab-content full-height py-4">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

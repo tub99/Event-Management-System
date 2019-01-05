@@ -1,0 +1,22 @@
+<div ng-controller="addEventsCtrl">
+    <div class="tab-pane active" id="tab11" role="tabpanel">
+        <h2 class="mb-3"></h2>
+        <form name="addEvent" novalidate>
+
+            <div class="form-group row">
+                <label for="ev_name" class="col-3 col-form-label">Event Name</label>
+                <div class="col-9">
+                    <input ng-model="ev_name" type="text" required class="form-control" id="ev_name" name="name">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="offset-3 col-9">
+                    <button ng-disabled="addEvent.$invalid" ng-click="addAnEvent()" type="submit" class="btn add-event btn-primary">Add</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

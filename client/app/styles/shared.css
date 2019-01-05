@@ -2,7 +2,12 @@
 .full-height{
     height: 100%;
 }
+.dark-bg{
+    background-color: #191970;
+    color: white;
+}
 
+/* loginctrl styles*/
 .login-container , .fp-container {
     display: inline-block;
     width: 38em;
@@ -27,4 +32,38 @@
 
 .login-container #inputPassword.ng-dirty.ng-invalid {
     border: 1px solid red; 
+}
+
+/* dashboard*/
+
+
+.tab-container{
+    padding-left:15px;
+    padding-right: 15px; 
+}
+a.nav-tabs{
+    color: #fff !important;
+    
+}
+
+/*employee*/
+
+.add-employee {
+    width: 12em;
+}
+.employee-form {
+    width: 35em;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.tab-content{
+    height: 95%;
+}
+
+/* events*/
+
+.events-container .nav-link{
+    cursor: pointer;
 }

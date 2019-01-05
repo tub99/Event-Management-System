@@ -1,1 +1,1 @@
-var app = angular.module('eventManagementApp',['ngRoute']);
+var app = angular.module('eventManagementApp', ['ui.router']);

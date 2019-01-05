@@ -1,4 +1,4 @@
-app.controller('loginCtrl', ['$scope', '$location', 'LoginService', function ($scope, $location, LoginService) {
+app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService', function ($scope, $location, LoginService, UserService) {
 
     $scope.isfpmode = false;
     $scope.fpNotification = '';
@@ -10,7 +10,8 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', function ($s
     $scope.doLogin = function () {
         LoginService.loginUser({ email: $scope.email, password: $scope.password })
             .then(function (resp) {
-                redirectToDashboard();
+                UserService.addCurrentUser(resp);
+                redirectToDashboard(resp.userType);
             })
             .catch(function (err) {
 
@@ -39,7 +40,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', function ($s
         $scope.fpNotification = '';
     }
 
-    function redirectToDashboard() {
-        $location.path('/dashboard').replace();
+    function redirectToDashboard(type) {
+        $location.path('/dashboard/' + type).replace();
     }
 }]);

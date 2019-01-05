@@ -1,15 +1,18 @@
 <head>
+    <base href="/">
     <title>Event Management</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./app/styles/shared.css">
     <script src="./lib.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
     <script src="./source_combine.js"></script>
+    <script src="./app/scripts/mock_data.js"></script>
 </head>
 
 <body>
     <div ng-app="eventManagementApp">
-        <div class="full-height" ng-view></div>
+        <div class="full-height" ui-view></div>
     </div>
 </body>

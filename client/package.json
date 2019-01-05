@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "angular": "1.7.x",
-    "angular-route": "1.7.x",
+    "angular-ui-router": "0.2.x",
     "bootstrap": "4.x",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6"
