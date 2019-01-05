@@ -62,8 +62,8 @@ class User {
      * Signin user: employee/manager.
      */
     signin(req, res, next) {
-        req.assert('email', 'Email is not valid').isEmail();
-        req.assert('password', 'Password must be at least 6 characters long').len(6);
+        
+        req.assert('password', 'Password is required');
         req.sanitize('email').normalizeEmail({
             gmail_remove_dots: false
         });
@@ -83,8 +83,7 @@ class User {
                         if (existingUser.password != Utils.decryptPassword(existingUser.password, password)) {
                             return Callbacks.SuccessWithError('Password is invalid', res);
                         } else {
-                            return Callbacks.Success(existingUser.reponse, res);
-
+                            return Callbacks.SuccessWithData('Sign In successful', existingUser.response(), res)
                         }
                     }
                 });
@@ -101,9 +100,10 @@ class User {
   */
     resetPassword(req, res, next) {
 
+        req.assert('password', 'Password is required');
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
-                User.findById(req.user.id, (err, user) => {
+                UserModel.findById(req.params.userId, (err, user) => {
                     if (err) {
                         return Callbacks.InternalServerError(err, res);
                     }
@@ -112,7 +112,7 @@ class User {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
                         }
-                        return Callbacks.Success(user, res);
+                        return Callbacks.Success('Password Reset Successful', res);
                     });
                 });
             } else {
@@ -125,11 +125,11 @@ class User {
     };
 
     /**
-     * Get api/v1/account/getUserById/:_id
+     * Get api/v1/account/getUserById/:userId
      * Get user by id.
      */
     getUserById(req, res, next) {
-        let userId = req.params.id;
+        let userId = req.params.userId;
 
         if (!Utils.isValidObjectId(userId)) {
             return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
