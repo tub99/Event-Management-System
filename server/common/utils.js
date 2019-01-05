@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const config = require('../config/config');
+const config = require('../config/constants');
 const ObjectID = require('mongodb').ObjectID;
 const BASE64_MARKER = ';base64,';
 const atob = require('atob');

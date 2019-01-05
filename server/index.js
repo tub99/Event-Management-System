@@ -78,7 +78,7 @@ app.use(session({
     saveUninitialized: true,
     secret:'abc',
     store: new MongoStore({
-        url: config.MONGODB_URI,
+        url: Constants.MONGODB_URI,
         autoReconnect: true,
         clear_interval: 3600
     })

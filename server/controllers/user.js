@@ -4,7 +4,7 @@ const UserModel = require('../models/user').model;
 const ErrorCodes = require('../config/errorCodes');
 const Callbacks = require('../common/callbacks');
 const Utils = require('../common/utils');
-const Config = require('../config/constants');
+const Constants = require('../config/constants');
 const ObjectID = require('mongodb').ObjectID;
 const Emailer = require('../common/emailer');
 
@@ -46,13 +46,19 @@ class User {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
                         }
-
+                        const userId = user._id;
                         Emailer.sendEmail(
-                            user.email, 'ghosesoumya001@gmail.com', 'Successful SignUp: Reset',
-                            'Reset Password', `<h1> Click on link below</h1><a href='http://localhost:4200/resetToken/userId'> Reset Pasword</a>`
-                        )
-                        const response = user.response();
-                        return Callbacks.SuccessWithData('User added successfully!', response, res);
+                            user.email, Constants.FROM_MAIL, Constants.RESET_PASSWORD_SUBJECT,
+                            '', `<h1> Click on the link below</h1><a href='${Constants.RESET_PASSWORD_URL}/${userId}'> Reset Pasword</a>`
+                        ).then(resp=>{
+                            console.log('Emailer reponse', resp)
+                            const response = user.response();
+                            return Callbacks.SuccessWithData('User added successfully!', response, res);
+                        })
+                        .catch(err=>{
+                            return Callbacks.Failed(404,'Couldnt Send mail', res)
+                        })
+                       
 
                     });
                 });
