@@ -8,3 +8,9 @@ client/source_combine.js
 
 # combined lib file
 client/lib.js
+
+# dependencies
+server/node_modules
+
+#logs
+server/logs
