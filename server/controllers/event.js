@@ -17,7 +17,7 @@ class Event {
      */
     createEvent(req, res, next) {
         req.assert('eventName', 'EventName name missing').notEmpty();
-        req.assert('proposedPlaces', 'EventName type missing').notEmpty();
+        req.assert('proposedPlaces', 'EventName type missing');
 
         req.getValidationResult().then(result => {
 
@@ -35,7 +35,7 @@ class Event {
                     }
                     if (existingEvent) {
                           const response = existingEvent.response();
-                         return Callbacks.SuccessWithData('Event added successfully!', response, res);
+                         return Callbacks.SuccessWithData('Event exists with same name', response, res);
                     }
 
                     // save the event
@@ -56,19 +56,18 @@ class Event {
     }
     
     /**
-     * PUT: api/v1/proposePlace/:eventId
-     * Update Event.
+     * PUT: api/v1/event/proposePlace?event=eventId&user=userId
+     * Update Event --> propose place.
      */
     proposePlace(req, res, next) {
-        req.assert('place', 'EventName type missing').notEmpty();
-        req.assert('eventId', 'EventName id missing').notEmpty();
+        req.assert('place', 'pace is missing').notEmpty();
 
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
                 
-                const eventId = req.body.eventId;
+                const eventId = req.query.eventId;
 
-                if(!Utils.isValidObjectId(eventId)){
+                if(!eventId || !Utils.isValidObjectId(eventId)){
                     return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
                 } else {
                     EventModel.findOne({
@@ -78,11 +77,11 @@ class Event {
                             return Callbacks.SuccessWithError(err, res);
                         }
                         if (existinEvent) {
-    
+                            existinEvent.proposedPlaces.push(req.body.place);
                             const eventUpdate = { 
                                 $set : {
                                     eventName: existinEvent.eventName,
-                                    orgName: existinEvent.proposedPlaces.push(req.body.push),
+                                    proposedPlaces: existinEvent.proposedPlaces,
                                     finalized: existinEvent.finalized
                                 }
                             };
@@ -110,20 +109,20 @@ class Event {
 
     /**
      * 
-	PUT: api/v1/event/finalize/:eventId
+	PUT: api/v1/event/finalize?eventId=eventId&locId=locId
 
      */
     finalizeEvent(req, res, next) {
 
         req.assert('eventId', 'EventId id missing').notEmpty();
-
+        req.assert('locId', 'finalizedLocation Id is missing').notEmpty();
+       
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
-                
-                const eventId = req.body.eventId;
-
-                if(!Utils.isValidObjectId(eventId)){
-                    return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
+                const finalizedLocationId = req.query.locId;
+                const eventId = req.query.eventId;
+                if(!eventId || !Utils.isValidObjectId(eventId) || !Utils.isValidObjectId(finalizedLocationId)){
+                    return Callbacks.ValidationError('Invalid id' || 'Validation error || location not finalized', res);
                 } else {
                     EventModel.findOne({
                         _id: new ObjectID(eventId)
@@ -136,8 +135,9 @@ class Event {
                             const eventUpdate = { 
                                 $set : {
                                     eventName: existinEvent.eventName,
-                                    orgName: existinEvent.proposedPlaces,
-                                    finalized: true
+                                    proposedPlaces: existinEvent.proposedPlaces,
+                                    finalizedLocationId: finalizedLocationId,
+                                    isFinalized: true
                                 }
                             };
     

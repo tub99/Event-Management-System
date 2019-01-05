@@ -124,6 +124,9 @@ app.use('/', require('./routes/index'));
 const user = require('./routes/api/user');
 app.use('/api/v1/account', user);
 
+const event = require('./routes/api/event');
+app.use('/api/v1/event', event);
+
 /**
  * Error Handler.
  */
