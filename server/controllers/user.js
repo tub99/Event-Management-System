@@ -4,7 +4,9 @@ const UserModel = require('../models/user').model;
 const ErrorCodes = require('../config/errorCodes');
 const Callbacks = require('../common/callbacks');
 const Utils = require('../common/utils');
+const Config = require('../config/constants');
 const ObjectID = require('mongodb').ObjectID;
+const Emailer = require('../common/emailer');
 
 class User {
     constructor() {
@@ -44,8 +46,13 @@ class User {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
                         }
-                        let _response = user.response();
-                        return Callbacks.SuccessWithData('User added successfully!', _response, res);
+
+                        Emailer.sendEmail(
+                            user.email, 'ghosesoumya001@gmail.com', 'Successful SignUp: Reset',
+                            'Reset Password', `<h1> Click on link below</h1><a href='http://localhost:4200/resetToken/userId'> Reset Pasword</a>`
+                        )
+                        const response = user.response();
+                        return Callbacks.SuccessWithData('User added successfully!', response, res);
 
                     });
                 });
@@ -62,7 +69,7 @@ class User {
      * Signin user: employee/manager.
      */
     signin(req, res, next) {
-        
+
         req.assert('password', 'Password is required');
         req.sanitize('email').normalizeEmail({
             gmail_remove_dots: false
@@ -94,10 +101,10 @@ class User {
         });
     }
 
-/**
-  * POST api/v1/account/resetPassword
-  * Update current password.
-  */
+    /**
+      * POST api/v1/account/resetPassword
+      * Update current password.
+      */
     resetPassword(req, res, next) {
 
         req.assert('password', 'Password is required');

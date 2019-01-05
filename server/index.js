@@ -17,7 +17,7 @@ const cors = require('cors');
 const fs = require('fs');
 const rfs = require('rotating-file-stream');
 const log4js = require('log4js');
-const config = require('./config/config');
+const Constants = require('./config/constants');
 const ErrorCodes = require('./config/errorCodes');
 
 /**
@@ -55,7 +55,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(config.MONGODB_URI);
+mongoose.connect(Constants.MONGODB_URI);
 mongoose.connection.on('error', (err) => {
     console.error(err);
     console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
