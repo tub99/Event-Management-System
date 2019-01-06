@@ -13,12 +13,13 @@ app.controller('employeeCtrl', ['$scope', 'EmployeeService', 'APP_CONSTANTS', fu
             scope.employeeAddStatus = true;
             scope.showAlert = true;
             scope.alertMessage = constants.SUCCESS_MESSAGE;
-
+            //swal(constants.SUCCESS_MESSAGE, "", "success");
         }).catch(function (err) {
 
             scope.employeeAddStatus = false;
             scope.showAlert = true;
-            scope.alertMessage = constants.ERROR_MESSAGE;
+           // scope.alertMessage = constants.ERROR_MESSAGE;
+            swal(constants.ERROR_MESSAGE, "", "success");
         });
     }
 }]);

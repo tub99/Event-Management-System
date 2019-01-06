@@ -11,7 +11,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
                 break;
             case 'employee':
                 $state.go("dashboard.events");
-                scope.setDashboardActiveMode('eventsBtn')
+                scope.setDashboardActiveMode('eventsBtn');
                 break;
             default: $state.go("login");
         }

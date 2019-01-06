@@ -39,9 +39,18 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         }
         EventsService.proposePlace(eventData, scope.selectedEvent._id).
             then(function (proposedResp) {
-                alert(proposedResp.message);
+                swal(proposedResp.message, "", 'success');
             })
-            .catch(function (err) { alert(err); })
+            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
+    }
+    scope.finalizeLocation = function () {
+        var eventId = scope.selectedEvent._id,
+            locId = scope.proposedPlace._id;
+        EventsService.finaliseLocation(eventId, locId).
+            then(function (finaliseResp) {
+                swal(finaliseResp.message, "", 'success');
+            })
+            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
     }
 
     scope.init();

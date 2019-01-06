@@ -13,10 +13,10 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
                 UserService.addCurrentUser(resp.data);
                 UserService.addUserToStorage(resp.data);
                 redirectToDashboard(resp.data.userType);
-                swal('Login Success');
+                swal("Login Success", "", "success");
             })
             .catch(function (err) {
-                swal("Oops!", "Something went wrong!", "error");
+                swal("Oops! Login Failure", "", "error");
             });
     }
 
