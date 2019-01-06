@@ -2,7 +2,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
 
     $scope.isfpmode = false;
     $scope.fpNotification = '';
-    
+
     if ($scope.isloggedin) {
         redirectToDashboard();
     }
@@ -13,9 +13,10 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
                 UserService.addCurrentUser(resp.data);
                 UserService.addUserToStorage(resp.data);
                 redirectToDashboard(resp.data.userType);
+                swal('Login Success');
             })
             .catch(function (err) {
-                alert(err)
+                swal("Oops!", "Something went wrong!", "error");
             });
     }
 
@@ -42,11 +43,11 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
     }
 
     $scope.setInput = function (field) {
-        $scope[field]= event.target.value;
+        $scope[field] = event.target.value;
     }
 
-    $scope.logout = function(){
-        UserService.removeUserFromStorage();      
+    $scope.logout = function () {
+        UserService.removeUserFromStorage();
     }
 
     function redirectToDashboard(type) {
