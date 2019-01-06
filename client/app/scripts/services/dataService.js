@@ -3,7 +3,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
     var parseAPIResponse = function (response) {
         var respData = response.data;
         if (respData.status === '1' && respData.result) {
-            var resp = respData.data;
+            var resp = respData.result;
             return respData;
         }
         else if (respData.status === '0' && respData.result) {
