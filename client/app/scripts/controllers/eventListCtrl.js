@@ -21,14 +21,21 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         currentEvent.isActive = true;
         scope.eventProposedPlaces = currentEvent.proposedPlaces;
         scope.proposedPlace = '';
+        scope.selectedEvent = currentEvent;
     }
 
     scope.selectPlace = function (place) {
-        scope.proposedPlace = place.locationName;
+        scope.proposedPlace = place;
     }
 
-    scope.finaliseList = function () {
-        EventsService.finaliseLocation(scope.proposedPlace);
+    scope.finaliseList = function (place) {
+        var eventData = {
+            place: {
+                locationName: place.locationName,
+                address: place.address
+            }
+        }
+        EventsService.finalisePlace(scope.selectedEvent._id, eventData);
     }
 
     scope.init();

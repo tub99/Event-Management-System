@@ -1,11 +1,15 @@
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
-    function config($stateProvider, $urlRouterProvider, $locationProvider) {
 
+app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
+    function config($qProvider, $stateProvider, $urlRouterProvider) {
 
-        // $urlRouterProvider.when('', '/login');
-        // $urlRouterProvider.when('/', '/login');
+        $qProvider.errorOnUnhandledRejections(false);
+        
         $stateProvider.
-            state('dashboard', {
+            state('login', {
+                url: '',
+                templateUrl: './app/views/login.html'
+            })
+            .state('dashboard', {
                 url: '/dashboard/:userType',
                 templateUrl: './app/views/dashboard.html'
             })
@@ -17,25 +21,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
                 url: '/events',
                 templateUrl: './app/views/events.html'
             })
-            .state('dashboard.events.addEvents',{
-                url:'/addEvents',
+            .state('dashboard.events.addEvents', {
+                url: '/addEvents',
                 templateUrl: './app/views/add_event.html'
             })
-            .state('dashboard.events.listofEvents',{
-                url:'/listofEvents',
+            .state('dashboard.events.listofEvents', {
+                url: '/listofEvents',
                 templateUrl: './app/views/event_list.html'
-            })
-            .state('login', {
-                url: '/login',
-                templateUrl: './app/views/login.html'
-            })
-            .state('default', {
-                url: '',
-                templateUrl: './app/views/login.html'
-            })
-            .state('default1', {
-                url: '/',
-                templateUrl: './app/views/login.html'
             })
             .state('404', {
                 url: '/404',
