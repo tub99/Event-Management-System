@@ -11,10 +11,10 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         LoginService.loginUser({ email: $scope.email, password: $scope.password })
             .then(function (resp) {
                 UserService.addCurrentUser(resp);
-                redirectToDashboard(resp.userType);
+                redirectToDashboard(resp.type);
             })
             .catch(function (err) {
-
+                alert(err)
             });
     }
 

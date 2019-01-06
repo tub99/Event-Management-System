@@ -8,11 +8,11 @@ app.service('LoginService', ['$http', '$q', 'DataService', 'APP_CONSTANTS', func
             })
             .catch(function(err){
                 console.log(err);
-                return err;
+                throw err;
             });
     }
 
-    this.forgotPassword = function (userData) {
+    this.resetPassword = function (userData) {
         return DataService.postData(APP_CONSTANTS.API.USER.RESET_PASSWORD, userData)
             .then(function(resp){
                 return resp;
