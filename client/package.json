@@ -8,10 +8,11 @@
     "angular-ui-router": "0.2.x",
     "bootstrap": "4.x",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.6"
+    "popper.js": "^1.14.6",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
-    "build": "node source_packer",
+    "build": "node source_packer && http-server -p 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "soumya",
