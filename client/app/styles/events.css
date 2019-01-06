@@ -1,0 +1,25 @@
+/* events*/
+
+.events-container .nav-link{
+    cursor: pointer;
+}
+
+.location-container{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 6px;
+    padding: 5px;
+}
+
+.event-list li{
+    cursor: pointer;
+}
+
+.existing-locations .locations{
+    height: auto;
+}
+
+.event-list .finalised{
+    cursor: not-allowed;
+    background-color: #eee;
+}

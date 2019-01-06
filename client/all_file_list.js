@@ -22,6 +22,13 @@ var libList = [
     './node_modules/popper.js/dist/umd/popper.min.js',
     './node_modules/bootstrap/dist/js/bootstrap.min.js',
     './node_modules/sweetalert/dist/sweetalert.min.js'
+];
+var styleList = [
+    './app/styles/shared.css',
+    './app/styles/login.css',
+    './app/styles/dashboard.css',
+    './app/styles/employee.css',
+    './app/styles/events.css'
 ]
 
-module.exports = { fileList, libList };
+module.exports = { fileList, libList, styleList };
