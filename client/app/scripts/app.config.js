@@ -2,8 +2,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
     function config($stateProvider, $urlRouterProvider, $locationProvider) {
 
 
-        $urlRouterProvider.when('', '/login');
-        $urlRouterProvider.when('/', '/login');
+        // $urlRouterProvider.when('', '/login');
+        // $urlRouterProvider.when('/', '/login');
         $stateProvider.
             state('dashboard', {
                 url: '/dashboard/:userType',
@@ -23,10 +23,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
             })
             .state('dashboard.events.listofEvents',{
                 url:'/listofEvents',
-                templateUrl: './app/views/list_event.html'
+                templateUrl: './app/views/event_list.html'
             })
             .state('login', {
                 url: '/login',
+                templateUrl: './app/views/login.html'
+            })
+            .state('default', {
+                url: '',
                 templateUrl: './app/views/login.html'
             })
             .state('404', {

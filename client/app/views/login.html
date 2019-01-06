@@ -1,13 +1,13 @@
-<div class="text-center full-height container" ng-controller="loginCtrl">
-    <div ng-if="!isfpmode" class="login-container">
+<div class="text-center full-height container" ng-controller="loginCtrl as $ctrl">
+    <div class="login-container">
         <form name="loginForm" class="form-signin" novalidate>
 
             <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input name="email" ng-model="email" type="email" id="inputEmail" class="form-control"
+            <input name="email" ng-model="$ctrl.email" type="email" id="inputEmail" class="form-control"
                 placeholder="Email address" required="" autofocus="">
             <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" ng-model="password" type="password" id="inputPassword" class="form-control"
+            <input name="password" ng-model="$ctrl.password" type="password" id="inputPassword" class="form-control"
                 placeholder="Password" required="">
             <br />
             <a href="javascript:void(0)" ng-click="setFpMode(true)">Forgot password</a>
@@ -18,12 +18,12 @@
         </form>
     </div>
 
-    <div ng-if="isfpmode" class="fp-container">
+    <!-- <div ng-if="isfpmode" class="fp-container">
         <form name="fpForm" class="form-forgot-pass" novalidate>
 
             <h1 class="h3 mb-3 font-weight-normal">Forgot Password</h1>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input ng-required="true" name="email" ng-model="email" type="email" id="inputEmail" class="form-control"
+            <input ng-required="true" name="email"  type="email" id="inputEmail" class="form-control"
                 placeholder="Email address" required="" autofocus="">
             <br />
             <span ng-show="!!fpNotification">{{fpNotification}}</span>
@@ -32,5 +32,5 @@
             </button>
             <button ng-click="setFpMode(false)" class="btn btn-lg btn-danger btn-block" type="button">Back</button>
         </form>
-    </div>
+    </div> -->
 </div>

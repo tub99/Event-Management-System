@@ -2,8 +2,8 @@
 
         <div class="col-10 mx-auto events-containers">
                 <ul class="nav dark-bg nav-pills small" ng-show="userType === 'manager'" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" ui-sref=".addEvents" role="button" data-toggle="tab" role="tab">Add Event</a></li>
-                    <li class="nav-item ml-auto"><a class="nav-link" ui-sref=".listofEvents" role="button" data-toggle="tab" role="tab">List of Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" ng-class="{'active':eventsCtrlState.addEvent}" ui-sref=".addEvents" role="button" role="tab">Add Event</a></li>
+                    <li class="nav-item ml-auto"><a class="nav-link" ng-class="{'active':eventsCtrlState.eventList}" ui-sref=".listofEvents" role="button" role="tab">List of Events</a></li>
                 </ul>
                 <div class="tab-content py-4">
                     <div ui-view></div>

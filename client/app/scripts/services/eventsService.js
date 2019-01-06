@@ -1,10 +1,18 @@
 app.service('EventsService', ['$http', '$q', function ($http, $q) {
 
-    this.events =[];
-    this.addEvent = function(evData){
+    this.events = [];
+    this.events = events;
+    this.addEvent = function (evData) {
 
-        $http.post('api/v1/event/createEvent',evData,function(resp){
+        $http.post('api/v1/event/createEvent', evData, function (resp) {
 
         });
+    }
+    this.getEvents = function () {
+        return this.events;
+    }
+
+    this.finaliseLocation = function (data) {
+        
     }
 }]);

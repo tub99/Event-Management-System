@@ -3,8 +3,8 @@ app.service('LoginService', ['$http', '$q', function ($http, $q) {
     this.loginUser = function (userData) {
 
         var deffered = $q.defer();
-        // deffered.resolve(userManager);
-        deffered.resolve(userEmployee);
+        deffered.resolve(userManager);
+        // deffered.resolve(userEmployee);
         $http.post('/api/v1/account/login', userData, function (response) {
 
             if (!response.data) deffered.reject("invalid email or password");

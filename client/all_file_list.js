@@ -10,7 +10,8 @@ var fileList = [
     './app/scripts/controllers/loginctrl.js',
     './app/scripts/controllers/employeectrl.js',
     './app/scripts/controllers/eventsCtrl.js',
-    './app/scripts/controllers/addEventsCtrl.js'
+    './app/scripts/controllers/addEventsCtrl.js',
+    './app/scripts/controllers/eventListCtrl.js'
 ];
 var libList = [
     './node_modules/jquery/dist/jquery.min.js',
