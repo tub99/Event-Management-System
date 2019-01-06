@@ -2,6 +2,7 @@ var fileList = [
     './app/scripts/app.js',
     './app/scripts/app.config.js',
     './app/scripts/app.constants.js',
+	'./app/scripts/services/dataService.js',
     './app/scripts/services/loginService.js',
     './app/scripts/services/userService.js',
     './app/scripts/services/employeeService.js',

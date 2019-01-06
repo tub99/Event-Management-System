@@ -6,14 +6,14 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
-                $state.go(".employee").catch(routeerErrHandler);
+                $state.go(".employee");
                 scope.setDashboardActiveMode('employeeBtn')
                 break;
             case 'employee':
-                $state.go(".events").catch(routeerErrHandler);
+                $state.go(".events");
                 scope.setDashboardActiveMode('eventsBtn')
                 break;
-            default: $state.go(".employee").catch(routeerErrHandler);
+            default: $state.go(".employee");
         }
 
     }

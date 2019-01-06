@@ -1,34 +1,22 @@
-app.service('LoginService', ['$http', '$q', function ($http, $q) {
+app.service('LoginService', ['$http', '$q', 'DataService', 'APP_CONSTANTS', function ($http, $q, DataService, APP_CONSTANTS) {
 
     this.loginUser = function (userData) {
 
-        var deffered = $q.defer();
-        // deffered.resolve(userManager);
-        deffered.resolve(userEmployee);
-        $http.post('/api/v1/account/login', userData, function (response) {
-
-            if (!response.data) deffered.reject("invalid email or password");
-            else deffered.resolve(response.data);
-
-        }).catch(function (err) {
-            
-            deffered.reject(err.statusText);
-        });
-        return deffered.promise;
+        return DataService.postData(APP_CONSTANTS.API.USER.SIGNIN, userData)
+            .then(function(resp){
+                return resp;
+            })
+            .catch(function(err){
+                console.log(err);
+                return err;
+            });
     }
 
-    this.forgotPassword = function(userData){
-        var deffered = $q.defer();
-
-        $http.post('/forgotpass', userData, function (response) {
-
-            if (!response.data) deffered.reject("invalid email");
-            else deffered.resolve(response.data);
-
-        }).catch(function (err) {
-            
-            deffered.reject(err.statusText);
-        });
-        return deffered.promise;
+    this.forgotPassword = function (userData) {
+        return DataService.postData(APP_CONSTANTS.API.USER.RESET_PASSWORD, userData)
+            .then(function(resp){
+                return resp;
+            })
+            .catch(function(err){return err});
     }
 }])
