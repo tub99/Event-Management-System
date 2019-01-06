@@ -9,6 +9,10 @@ app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
                 url: '',
                 templateUrl: './app/views/login.html'
             })
+            .state('resetPassword', {
+                url: '/resetPassword/:userId',
+                templateUrl: './app/views/reset_password.html'
+            })
             .state('dashboard', {
                 url: '/dashboard/:userType',
                 templateUrl: './app/views/dashboard.html'
