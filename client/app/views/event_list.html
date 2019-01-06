@@ -4,7 +4,9 @@
             <h2>Events</h2>
             <ul class="list-group event-list">
                 <li class="list-group-item" ng-class="{'active':event.isActive,'finalised':event.isFinalized}" ng-click="!event.isFinalized && onEventSelect(event)"
-                    ng-repeat="event in eventList">{{event.eventName}} <small ng-show="event.isFinalized">(finalised)</small></li>
+                    ng-repeat="event in eventList">{{event.eventName}}
+                    <small ng-show="event.isFinalized">(finalised)</small>
+                </li>
             </ul>
         </div>
         <div ng-show="userType === 'manager'" class="col-md-6 col-12">
@@ -13,8 +15,7 @@
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <input id="proposedPlace" ng-click="selectPlace(place)" ng-value="place.locationName" name="location"
-                                type="radio">
+                            <input id="proposedPlace" ng-click="selectPlace(place)" ng-value="place.locationName" name="location" type="radio">
                         </div>
                     </div>
                     <label class="form-control">{{place.locationName}}</label>
@@ -28,36 +29,38 @@
 
         </div>
         <div ng-show="userType === 'employee'" class="col-md-6 col-12 existing-locations">
-            <div class="location-container">
+            <div ng-show="selectedEvent" class="location-container">
                 <h2 ng-show="eventProposedPlaces.length > 0">Existing Locations</h2>
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
 
                     <label class="form-control locations">
-                        Location: {{place.locationName}}<br />
-                        Adress: <small>{{place.address}}</small>
+                        Location: {{place.locationName}}
+                        <br /> Adress:
+                        <small>{{place.address}}</small>
                     </label>
                 </div>
-                <form name="proposePlace" novalidate>
+                <form  name="proposePlace" novalidate>
 
                     <div class="form-group row">
-                        <label for="ev_name" class="col-3 col-form-label"><strong>Location</strong></label>
+                        <label for="ev_name" class="col-3 col-form-label">
+                            <strong>Location</strong>
+                        </label>
                         <div class="col-9">
-                            <input ng-minLength="3" ng-model="location" type="text" required class="form-control" id="location"
-                                name="name">
+                            <input ng-minLength="3" ng-model="location" type="text" required class="form-control" id="location" name="name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="ev_name" class="col-3 col-form-label"><strong>Address</strong></label>
+                        <label for="ev_name" class="col-3 col-form-label">
+                            <strong>Address</strong>
+                        </label>
                         <div class="col-9">
-                            <input ng-minLength="10" ng-model="address" type="text" required class="form-control" id="address"
-                                name="name">
+                            <input ng-minLength="10" ng-model="address" type="text" required class="form-control" id="address" name="name">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="offset-3 col-9">
-                            <button ng-disabled="proposePlace.$invalid" ng-click="proposeLocation()" type="submit"
-                                class="btn add-event btn-primary">Add</button>
+                            <button ng-disabled="proposePlace.$invalid" ng-click="proposeLocation()" type="submit" class="btn add-event btn-primary">Propose Location</button>
                         </div>
                     </div>
 
