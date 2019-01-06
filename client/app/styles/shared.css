@@ -7,6 +7,11 @@
     color: white;
 }
 
+.dark-bg .nav-link{
+    color: white;
+    font-size: 1.2em;
+}
+
 /* loginctrl styles*/
 .login-container , .fp-container {
     display: inline-block;
@@ -81,4 +86,8 @@ a.nav-tabs{
 
 .existing-locations .locations{
     height: auto;
+}
+
+.event-list .finalised{
+    cursor: not-allowed;
 }

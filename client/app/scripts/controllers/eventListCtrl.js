@@ -7,6 +7,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         EventsService.getEvents().
             then(function (events) {
                 scope.eventList = events;
+                scope.eventProposedPlaces = [];
             })
             .catch(function (err) { return err; })
 
@@ -24,25 +25,42 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         scope.eventProposedPlaces = currentEvent.proposedPlaces;
         scope.proposedPlace = '';
         scope.selectedEvent = currentEvent;
+        scope.resetModels();
     }
 
     scope.selectPlace = function (place) {
         scope.proposedPlace = place;
     }
 
-    scope.proposePlace = function (place) {
-        var eventData = {
-            place: {
-                locationName: place.locationName,
-                address: place.address
-            }
-        }
-        EventsService.proposePlace(eventData, scope.selectedEvent._id).
-            then(function (proposedResp) {
-                alert(proposedResp.message);
+    scope.finalise = function () {
+
+        EventsService.finaliseLocation(scope.selectedEvent.id, scope.proposedPlace.id)
+            .then(function (finaliseResp) {
+                scope.init();
+                scope.resetModels();
+                alert(finaliseResp.message);
             })
             .catch(function (err) { alert(err); })
     }
 
+    scope.proposeLocation = function () {
+        var eventData = {
+            place: {
+                locationName: scope.location,
+                address: scope.address
+            }
+        }
+        EventsService.proposePlace(eventData, scope.selectedEvent._id)
+            .then(function (proposedResp) {
+                scope.init();
+                scope.resetModels();
+                alert(proposedResp.message);
+            })
+            .catch(function (err) { alert(err); })
+    }
+    scope.resetModels = function () {
+        scope.location = '';
+        scope.address = '';
+    }
     scope.init();
 }]); 

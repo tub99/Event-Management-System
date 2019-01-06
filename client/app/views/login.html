@@ -7,11 +7,9 @@
             <input name="email" ng-change="setInput('email')" ng-model="email" type="email" id="inputEmail" class="form-control"
                 placeholder="Email address" required="" autofocus="">
             <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" ng-change="setInput('password')" ng-model="password" type="password" id="inputPassword" class="form-control"
-                placeholder="Password" required="">
-            <br />
-            <a href="javascript:void(0)" ng-click="setFpMode(true)">Forgot password</a>
-            <br /><br/>
+            <input name="password" ng-change="setInput('password')" ng-model="password" type="password" id="inputPassword"
+                class="form-control" placeholder="Password" required="">
+            <br /><br />
             <button ng-disabled="loginForm.$invalid" ng-click="doLogin()" class="btn btn-lg btn-primary btn-block" type="submit">Sign
                 in</button>
 

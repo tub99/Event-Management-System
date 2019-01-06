@@ -37,7 +37,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
 
     this.putData = function (url, data) {
 
-        $http.put(url, data).then(function (response) {
+        return $http.put(url, data).then(function (response) {
 
             return parseAPIResponse(response);
 
