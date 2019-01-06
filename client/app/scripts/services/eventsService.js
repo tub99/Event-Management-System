@@ -24,7 +24,8 @@ app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataServ
 
     this.finaliseLocation = function (eventId, locationId) {
         // passing data in form of query params
-        return DataService.putData(APP_CONSTANTS.API.EVENT.FINALIZE_LOCATION)
+        var finaliseUrl = APP_CONSTANTS.API.EVENT.FINALIZE_LOCATION+'?eventId='+eventId+'&locId='+locationId;
+        return DataService.putData(finaliseUrl)
             .then(function (eventFinalizeResp) {
                 return eventFinalizeResp.result;
             })

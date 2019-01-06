@@ -32,17 +32,6 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         scope.proposedPlace = place;
     }
 
-    scope.finalise = function () {
-
-        EventsService.finaliseLocation(scope.selectedEvent.id, scope.proposedPlace.id)
-            .then(function (finaliseResp) {
-                scope.init();
-                scope.resetModels();
-                alert(finaliseResp.message);
-            })
-            .catch(function (err) { alert(err); })
-    }
-
     scope.proposeLocation = function () {
         var eventData = {
             place: {
@@ -50,13 +39,24 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
                 address: scope.address
             }
         }
-        EventsService.proposePlace(eventData, scope.selectedEvent._id)
-            .then(function (proposedResp) {
+        EventsService.proposePlace(eventData, scope.selectedEvent._id).
+            then(function (proposedResp) {
+                swal(proposedResp.message, "", 'success');
                 scope.init();
                 scope.resetModels();
-                alert(proposedResp.message);
             })
-            .catch(function (err) { alert(err); })
+            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
+    }
+    scope.finalizeLocation = function () {
+        var eventId = scope.selectedEvent._id,
+            locId = scope.proposedPlace._id;
+        EventsService.finaliseLocation(eventId, locId).
+            then(function (finaliseResp) {
+                scope.init();
+                scope.resetModels();
+                swal(finaliseResp.message, "", 'success');
+            })
+            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
     }
     scope.resetModels = function () {
         scope.location = '';

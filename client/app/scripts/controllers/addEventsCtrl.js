@@ -5,12 +5,12 @@ app.controller('addEventsCtrl', ['$scope', '$state', 'EventsService','APP_CONSTA
 
     scope.addAnEvent = function () {
         
-        evData = { eventName: scope.evName, finalised: false };
+        var eventData = { eventName: scope.evName, proposedPlaces: [] };
 
-        EventsService.addEvent(evData).then(function (resp) {
-            scope.displayStatus(true);
+        EventsService.addEvent(eventData).then(function (resp) {
+            swal(constants.SUCCESS_MESSAGE, '', 'success');
         }).catch(function () {
-            scope.displayStatus(false);
+            swal(constants.ERROR_MESSAGE, '', 'error');
         });
     }
 

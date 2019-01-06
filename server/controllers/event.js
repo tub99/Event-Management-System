@@ -60,7 +60,6 @@ class Event {
      * Update Event --> propose place.
      */
     proposePlace(req, res, next) {
-        req.assert('place', 'pace is missing').notEmpty();
 
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
