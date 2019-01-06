@@ -124,7 +124,7 @@ class User {
                     if (err) {
                         return Callbacks.InternalServerError(err, res);
                     }
-                    user.password = req.body.password;
+                    user.password = Utils.encryptPassowrd(req.body.password);
                     user.save((err) => {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
