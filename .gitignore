@@ -9,6 +9,9 @@ client/source_combine.js
 # combined lib file
 client/lib.js
 
+#combined styles
+client/styles.css
+
 # dependencies
 server/node_modules
 

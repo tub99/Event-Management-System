@@ -1,7 +1,7 @@
 var fs = require('fs');
-var { fileList, libList } = require('./all_file_list');
+var { fileList, libList, styleList } = require('./all_file_list');
 
-function combineSource(fileList, filename) {
+function combineSource(fileList, filename, message) {
     var sourceStr = '';
     fileList.forEach(src => {
         sourceStr += fs.readFileSync(__dirname + '/' + src, { encoding: 'utf-8' });
@@ -12,9 +12,10 @@ function combineSource(fileList, filename) {
         if (err)
             console.err(err);
         else
-            console.log('Done!');
+            console.log(message + ' Done!');
     });
 }
 
-combineSource(fileList, './source_combine.js');
-combineSource(libList, './lib.js');
+combineSource(fileList, './source_combine.js', 'source combine');
+combineSource(libList, './lib.js', 'libs combine');
+combineSource(styleList, './styles.css', 'styles combine');

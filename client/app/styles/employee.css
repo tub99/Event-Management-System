@@ -1,0 +1,15 @@
+/*employee*/
+
+.add-employee {
+    width: 12em;
+}
+.employee-form {
+    width: 35em;
+    padding: 15px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.tab-content{
+    height: 95%;
+}
