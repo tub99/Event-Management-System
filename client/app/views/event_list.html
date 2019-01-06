@@ -5,12 +5,12 @@
             <ul class="list-group event-list">
                 <li class="list-group-item" ng-class="{'active':event.isActive,'finalised':event.isFinalized}" ng-click="!event.isFinalized && onEventSelect(event)"
                     ng-repeat="event in eventList">{{event.eventName}}
-                    <small ng-show="event.isFinalized">(finalised)</small>
+                    <strong ng-show="event.isFinalized"> : Finalised</strong>
                 </li>
             </ul>
         </div>
         <div ng-show="userType === 'manager'" class="col-md-6 col-12">
-            <div class="location-container">
+            <div ng-show="selectedEvent" class="location-container">
                 <h2>Proposed Locations</h2>
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
                     <div class="input-group-prepend">
@@ -18,7 +18,9 @@
                             <input id="proposedPlace" ng-click="selectPlace(place)" ng-value="place.locationName" name="location" type="radio">
                         </div>
                     </div>
-                    <label class="form-control">{{place.locationName}}</label>
+                    <label class="form-control locations">
+                        Place: {{place.locationName}} , Address: {{place.address}}
+                    </label>
                 </div>
                 <div class="form-group row">
                     <div class="offset-3 col-9">
@@ -34,12 +36,12 @@
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
 
                     <label class="form-control locations">
-                        Location: {{place.locationName}}
-                        <br /> Adress:
+                        Place: {{place.locationName}}
+                        <br /> Address:
                         <small>{{place.address}}</small>
                     </label>
                 </div>
-                <form  name="proposePlace" novalidate>
+                <form name="proposePlace" novalidate>
 
                     <div class="form-group row">
                         <label for="ev_name" class="col-3 col-form-label">

@@ -32,11 +32,8 @@ app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
             .state('dashboard.events.listofEvents', {
                 url: '/listofEvents',
                 templateUrl: './app/views/event_list.html'
-            })
-            .state('404', {
-                url: '/404',
-                templateUrl: './app/views/404.html'
             });
-        $urlRouterProvider.otherwise('/404');
+
+        $urlRouterProvider.otherwise('');
     }
 ]);

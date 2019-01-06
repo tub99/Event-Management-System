@@ -6,8 +6,8 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
-                $state.go("dashboard.employee");
-                scope.setDashboardActiveMode('employeeBtn')
+                $state.go('dashboard.employee');
+                $state.current.name.indexOf('.events') !== -1 ? scope.setDashboardActiveMode('eventsBtn') : scope.setDashboardActiveMode('employeeBtn')
                 break;
             case 'employee':
                 $state.go("dashboard.events");
@@ -24,7 +24,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
             toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
             console.log(event, toState, toParams, fromState, fromParams)
         });
-    
+
 
     scope.setDashboardActiveMode = function (state) {
 
