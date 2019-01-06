@@ -83,8 +83,8 @@ class User {
 
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
-                let email = req.body.email;
-                let password = req.body.password;
+                const email = req.body.email;
+                const password = req.body.password;
 
                 UserModel.findOne({
                     email: req.body.email
@@ -93,7 +93,11 @@ class User {
                         return Callbacks.SuccessWithError('User not found', res);
                     }
                     if (existingUser) {
-                        if (existingUser.password != Utils.decryptPassword(existingUser.password, password)) {
+                        const passwordValidation = existingUser.type === 'employee' ?
+                        existingUser.password != Utils.decryptPassword(existingUser.password, password) :
+                        existingUser.password === password;
+
+                        if (!passwordValidation) {
                             return Callbacks.SuccessWithError('Password is invalid', res);
                         } else {
                             return Callbacks.SuccessWithData('Sign In successful', existingUser.response(), res)
