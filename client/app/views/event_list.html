@@ -29,7 +29,7 @@
 
         </div>
         <div ng-show="userType === 'employee'" class="col-md-6 col-12 existing-locations">
-            <div class="location-container">
+            <div ng-show="selectedEvent" class="location-container">
                 <h2 ng-show="eventProposedPlaces.length > 0">Existing Locations</h2>
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
 
@@ -39,7 +39,7 @@
                         <small>{{place.address}}</small>
                     </label>
                 </div>
-                <form ng-show="selectedEvent" name="proposePlace" novalidate>
+                <form  name="proposePlace" novalidate>
 
                     <div class="form-group row">
                         <label for="ev_name" class="col-3 col-form-label">
