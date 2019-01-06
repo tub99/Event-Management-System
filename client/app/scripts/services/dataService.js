@@ -10,7 +10,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
                 return resp;
             }
             else if (response.status === 0 && response.result) {
-                return response.result.message
+                return response.result.message;
             }
 
         }).catch(function (err) {
@@ -20,42 +20,37 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
     }
 
     this.getData = function (url) {
-        var deffered = $q.defer();
-
-        $http.get(url, function (response) {
+       
+        return $http.get(url, function (response) {
 
             if (response.status === 1 && response.result) {
                 var resp = response.result.data || response.result.message;
-                deffered.resolve(resp);
+                return resp;
             }
             else if (response.status === 0 && response.result) {
-                deffered.reject(response.result.message);
+                return response.result.message
             }
 
         }).catch(function (err) {
 
-            deffered.reject(err.statusText);
+            return err;
         });
-        return deffered.promise;
     }
 
     this.putData = function (url, data) {
-        var deffered = $q.defer();
 
         $http.put(url, data, function (response) {
 
             if (response.status === 1 && response.result) {
                 var resp = response.result.data || response.result.message;
-                deffered.resolve(resp);
+                return resp;
             }
             else if (response.status === 0 && response.result) {
-                deffered.reject(response.result.message);
+                return response.result.message
             }
 
         }).catch(function (err) {
-
-            deffered.reject(err.statusText);
+            return err;
         });
-        return deffered.promise;
     }
 }])
