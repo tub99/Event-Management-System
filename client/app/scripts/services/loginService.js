@@ -4,7 +4,7 @@ app.service('LoginService', ['$http', '$q', 'DataService', 'APP_CONSTANTS', func
 
         return DataService.postData(APP_CONSTANTS.API.USER.SIGNIN, userData)
             .then(function(resp){
-                return resp;
+                return resp.result;
             })
             .catch(function(err){
                 console.log(err);

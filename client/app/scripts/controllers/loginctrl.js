@@ -10,8 +10,8 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
     $scope.doLogin = function () {
         LoginService.loginUser({ email: $scope.email, password: $scope.password })
             .then(function (resp) {
-                UserService.addCurrentUser(resp);
-                redirectToDashboard(resp.type);
+                UserService.addCurrentUser(resp.data);
+                redirectToDashboard(resp.data.userType);
             })
             .catch(function (err) {
                 alert(err)

@@ -15,7 +15,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
 
         return $http.post(url, data).
             then(function (response) {
-                parseAPIResponse(response);
+                return parseAPIResponse(response);
 
             }).catch(function (err) {
                 console.log(err);
@@ -27,7 +27,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
 
         return $http.get(url, function (response) {
 
-            parseAPIResponse(response);
+            return parseAPIResponse(response);
 
         }).catch(function (err) {
 
@@ -39,7 +39,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
 
         $http.put(url, data, function (response) {
 
-            parseAPIResponse(response);
+            return parseAPIResponse(response);
 
         }).catch(function (err) {
 
