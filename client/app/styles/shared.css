@@ -78,3 +78,7 @@ a.nav-tabs{
 .event-list li{
     cursor: pointer;
 }
+
+.existing-locations .locations{
+    height: auto;
+}

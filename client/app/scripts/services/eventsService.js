@@ -13,6 +13,9 @@ app.service('EventsService', ['$http', '$q', function ($http, $q) {
     }
 
     this.finalisePlace = function (data) {
-        
+
+    }
+    this.proposePlace = function (evId,proposedPlace) {
+
     }
 }]);

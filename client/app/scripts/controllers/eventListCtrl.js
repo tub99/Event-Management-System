@@ -1,10 +1,11 @@
-app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, EventsService) {
+app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', function (scope, EventsService, UserService) {
 
     scope.eventList = [];
     scope.eventProposedPlaces = [];
     scope.proposedPlace = '';
     scope.init = function () {
         scope.eventList = EventsService.getEvents();
+        scope.userType = UserService.getUserType();
     }
 
     scope.onEventSelect = function (currentEvent) {
@@ -15,7 +16,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         }
         currentEvent.isActive = true;
         scope.eventProposedPlaces = currentEvent.proposedPlaces;
-        scope.proposedPlace = '';
+        scope.proposedPlace = null;
         scope.selectedEvent = currentEvent;
     }
 
@@ -23,14 +24,16 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         scope.proposedPlace = place;
     }
 
-    scope.finaliseList = function (place) {
+    scope.proposeLocation = function () {
         var eventData = {
             place: {
-                locationName: place.locationName,
-                address: place.address
+                locationName: scope.location,
+                address: scope.address
             }
         }
-        EventsService.finalisePlace(scope.selectedEvent._id, eventData);
+        EventsService.proposePlace(scope.selectedEvent._id, eventData);
     }
+
+
     scope.init();
 }]); 
