@@ -6,11 +6,11 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
-                $state.go(".employee");
+                $state.go("dashboard.employee");
                 scope.setDashboardActiveMode('employeeBtn')
                 break;
             case 'employee':
-                $state.go(".events");
+                $state.go("dashboard.events");
                 scope.setDashboardActiveMode('eventsBtn')
                 break;
             default: $state.go("login");

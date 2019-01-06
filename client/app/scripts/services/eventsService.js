@@ -12,7 +12,7 @@ app.service('EventsService', ['$http', '$q', function ($http, $q) {
         return this.events;
     }
 
-    this.finaliseLocation = function (data) {
+    this.finalisePlace = function (data) {
         
     }
 }]);
