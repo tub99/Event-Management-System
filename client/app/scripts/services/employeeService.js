@@ -1,16 +1,12 @@
-app.service("EmployeeService", ['$http', '$q', function ($http, $q) {
+app.service("EmployeeService", ['DataService', 'APP_CONSTANTS', function (DataService, APP_CONSTANTS) {
 
     this.addEmployee = function (data) {
-        var deferred = $q.defer();
-        $http.post('', data, function (resp) {
-            if (resp) {
-                deferred.resolve(resp);
-            } else {
-                deferred.reject('Oopss a problem occured!!');
-            }
-        }).catch(function (err) {
-            deferred.reject(err);
+        return DataService.postData(APP_CONSTANTS.API.USER.SIGNUP, userData)
+        .then(function(resp){
+            return resp;
+        })
+        .catch(function(err){
+            throw err;
         });
-        return deferred.promise;
     }
 }]);

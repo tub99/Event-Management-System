@@ -19,4 +19,4 @@ app.service('LoginService', ['$http', '$q', 'DataService', 'APP_CONSTANTS', func
             })
             .catch(function(err){return err});
     }
-}])
+}]);
