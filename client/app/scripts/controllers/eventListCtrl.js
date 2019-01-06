@@ -4,7 +4,12 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
     scope.eventProposedPlaces = [];
     scope.proposedPlace = '';
     scope.init = function () {
-        scope.eventList = EventsService.getEvents();
+        EventsService.getEvents().
+            then(function (events) {
+                scope.eventList = events;
+            })
+            .catch(function (err) { return err; })
+
     }
 
     scope.onEventSelect = function (currentEvent) {
@@ -25,5 +30,6 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
     scope.finaliseList = function () {
         EventsService.finaliseLocation(scope.proposedPlace);
     }
+
     scope.init();
 }]); 
