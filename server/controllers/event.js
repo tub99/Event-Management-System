@@ -93,9 +93,11 @@ class Event {
                                 if (err) {
                                     return Callbacks.InternalServerError(err, res);
                                 }
+                                const emailtemplate = `<h1>${Constants.EVENT_PLACE_ADDITION_SUBJECT}, ${existinEvent.eventName}
+                                </h1><a href='${Constants.APP_REDIRECT_URL}'>Click Here to Goto App</a>`;
                                 Emailer.sendEmail(
                                     Constants.MANAGER_EMAIL, Constants.FROM_MAIL, Constants.EVENT_PLACE_ADDITION_SUBJECT,
-                                    '', `<h1> Click on the link below</h1><a href='${Constants.APP_REDIRECT_URL}'>Goto App</a>`
+                                    '', emailtemplate
                                 ).then(resp=>{
                                     console.log('Emailer reponse', resp)
                                     const response = 'Event : propose place updated successfully!';

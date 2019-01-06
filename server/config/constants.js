@@ -3,8 +3,8 @@ module.exports = {
     FROM_MAIL:'ghosesoumya001@gmail.com',
     RESET_PASSWORD_URL:'http://localhost:3000/#!/resetPassword',
     RESET_PASSWORD_SUBJECT:'Reset User Password',
-    EVENT_PLACE_ADDITION_SUBJECT:'Event has been added',
-    EVENT_INVITATION_ADDITION_TEMPLATE: '<h1> A new place has been added to Event</h1>',
+    EVENT_PLACE_ADDITION_SUBJECT:'A new place has been added to Event',
+    EVENT_INVITATION_ADDITION_TEMPLATE: 'Hey, A new place has been added to the Event',
     APP_REDIRECT_URL: `http://localhost:3000/#!/dashboard/employee/events/listofEvents`,
     MANAGER_EMAIL:'manager@gmail.com'
 
