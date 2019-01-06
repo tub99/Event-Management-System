@@ -90,4 +90,5 @@ a.nav-tabs{
 
 .event-list .finalised{
     cursor: not-allowed;
+    background-color: #eee;
 }
