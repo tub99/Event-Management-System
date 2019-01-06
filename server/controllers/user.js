@@ -94,7 +94,7 @@ class User {
                     }
                     if (existingUser) {
                         const passwordValidation = existingUser.type === 'employee' ?
-                        existingUser.password != Utils.decryptPassword(existingUser.password, password) :
+                        existingUser.password === Utils.decryptPassword(existingUser.password, password) :
                         existingUser.password === password;
 
                         if (!passwordValidation) {
