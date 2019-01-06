@@ -15,7 +15,7 @@ var constants = {
         EVENT: {
             CREATE_EVENT: 'http://localhost:444/api/v1/event/createEvent',
             PROPOSE_PLACE: 'http://localhost:444/api/v1/event/proposePlace',
-            FINALIZE_LOCATION: 'http://localhost:444/api/v1/event/proposePlace',
+            FINALIZE_LOCATION: 'http://localhost:444/api/v1/event/finalize',
             EVENT_LIST: 'http://localhost:444/api/v1/event/getEvents'
         }
 

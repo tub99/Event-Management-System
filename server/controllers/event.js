@@ -5,6 +5,8 @@ const ErrorCodes = require('../config/errorCodes');
 const Callbacks = require('../common/callbacks');
 const Utils = require('../common/utils');
 const ObjectID = require('mongodb').ObjectID;
+const Emailer = require('../common/emailer');
+const Constants = require('../config/constants');
 
 class Event {
     constructor() {
@@ -91,8 +93,18 @@ class Event {
                                 if (err) {
                                     return Callbacks.InternalServerError(err, res);
                                 }
-                                let _response = 'Event : propose place updated successfully!';
-                                return Callbacks.Success(_response, res);
+                                Emailer.sendEmail(
+                                    Constants.MANAGER_EMAIL, Constants.FROM_MAIL, Constants.EVENT_PLACE_ADDITION_SUBJECT,
+                                    '', `<h1> Click on the link below</h1><a href='${Constants.APP_REDIRECT_URL}'>Goto App</a>`
+                                ).then(resp=>{
+                                    console.log('Emailer reponse', resp)
+                                    const response = 'Event : propose place updated successfully!';
+                                    return Callbacks.Success(response, res);
+                                })
+                                .catch(err=>{
+                                    return Callbacks.Failed(404,'Couldnt Send mail', res)
+                                })
+                               
                             });
                         } else {
                             return Callbacks.SuccessWithError('Event does not exist.', res);
