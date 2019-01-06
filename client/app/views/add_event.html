@@ -6,7 +6,7 @@
             <div class="form-group row">
                 <label for="ev_name" class="col-3 col-form-label">Event Name</label>
                 <div class="col-9">
-                    <input ng-model="ev_name" type="text" required class="form-control" id="ev_name" name="name">
+                    <input ng-model="evName" type="text" required class="form-control" id="evName" name="name">
                 </div>
             </div>
             
@@ -17,6 +17,9 @@
             </div>
 
         </form>
-
+        <div class="alert alert-dismissible " ng-class="{'alert-success': eventAddStatus,'alert-danger': !eventAddStatus}" ng-show="showAlert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{alertMessage}}
+            </div>
     </div>
 </div>

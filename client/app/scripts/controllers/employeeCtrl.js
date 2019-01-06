@@ -1,9 +1,7 @@
-app.controller('employeeCtrl', ['$scope', 'EmployeeService', function (scope, EmployeeService) {
+app.controller('employeeCtrl', ['$scope', 'EmployeeService', 'APP_CONSTANTS', function (scope, EmployeeService, constants) {
 
     scope.employeeAddStatus = false;
     scope.showAlert = false;
-    scope.SUCCESS_MESSAGE = "Hurray! Successfull";
-    scope.ERROR_MESSAGE = "Ooops! an error occured :(";
     scope.alertMessage = '';
 
     scope.addAnEmployee = function () {
@@ -11,16 +9,16 @@ app.controller('employeeCtrl', ['$scope', 'EmployeeService', function (scope, Em
         var employeeData = { name: scope.name, email: scope.email, password: scope.password };
 
         EmployeeService.addEmployee(employeeData).then(function (resp) {
-            
+
             scope.employeeAddStatus = true;
             scope.showAlert = true;
-            scope.alertMessage = scope.SUCCESS_MESSAGE;
+            scope.alertMessage = constants.SUCCESS_MESSAGE;
 
         }).catch(function (err) {
 
             scope.employeeAddStatus = false;
             scope.showAlert = true;
-            scope.alertMessage = scope.ERROR_MESSAGE;
+            scope.alertMessage = constants.ERROR_MESSAGE;
         });
     }
 }]);

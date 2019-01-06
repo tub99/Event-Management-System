@@ -1,9 +1,11 @@
 var fileList = [
     './app/scripts/app.js',
     './app/scripts/app.config.js',
+    './app/scripts/app.constants.js',
     './app/scripts/services/loginService.js',
     './app/scripts/services/userService.js',
     './app/scripts/services/employeeService.js',
+    './app/scripts/services/eventsService.js',
     './app/scripts/controllers/dashboardCtrl.js',
     './app/scripts/controllers/loginctrl.js',
     './app/scripts/controllers/employeectrl.js',
