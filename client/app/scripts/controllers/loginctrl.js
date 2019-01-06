@@ -2,7 +2,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
 
     $scope.isfpmode = false;
     $scope.fpNotification = '';
-
+    
     if ($scope.isloggedin) {
         redirectToDashboard();
     }
@@ -11,6 +11,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         LoginService.loginUser({ email: $scope.email, password: $scope.password })
             .then(function (resp) {
                 UserService.addCurrentUser(resp.data);
+                UserService.addUserToStorage(resp.data);
                 redirectToDashboard(resp.data.userType);
             })
             .catch(function (err) {
@@ -44,7 +45,12 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         $scope[field]= event.target.value;
     }
 
+    $scope.logout = function(){
+        UserService.removeUserFromStorage();      
+    }
+
     function redirectToDashboard(type) {
         $location.path('/dashboard/' + type).replace();
     }
+    $scope.logout();
 }]);

@@ -5,7 +5,7 @@ app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataServ
     this.addEvent = function (eventData) {
         return DataService.postData(APP_CONSTANTS.API.EVENT.CREATE_EVENT, eventData)
             .then(function (eventResp) {
-                return eventResp;
+                return eventResp.result;
             })
             .catch(function (eventErr) {
                 throw eventErr;
@@ -14,7 +14,7 @@ app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataServ
     this.getEvents = function () {
         return DataService.getData(APP_CONSTANTS.API.EVENT.EVENT_LIST)
             .then(function (eventListResp) {
-                this.events = eventListResp.data;
+                this.events = eventListResp.result.data;
                 return this.events;
             })
             .catch(function (eventErr) {
@@ -22,21 +22,21 @@ app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataServ
             });
     }
 
-    this.finaliseLocation = function () {
+    this.finaliseLocation = function (eventId, locationId) {
         // passing data in form of query params
         return DataService.put(APP_CONSTANTS.API.EVENT.FINALIZE_LOCATION)
             .then(function (eventFinalizeResp) {
-                return eventFinalizeResp;
+                return eventFinalizeResp.result;
             })
             .catch(function (eventErr) {
                 throw eventErr;
             });
     }
 
-    this.proposePlace = function (place) {
-        return DataService.put(APP_CONSTANTS.API.EVENT.PROPOSE_PLACE, place)
+    this.proposePlace = function (place, eventId) {
+        return DataService.put(APP_CONSTANTS.API.EVENT.PROPOSE_PLACE+'?eventId='+eventId, place)
             .then(function (eventPropse) {
-                return eventPropse.data;
+                return eventPropse.result;
             })
             .catch(function (eventErr) {
                 throw eventErr;

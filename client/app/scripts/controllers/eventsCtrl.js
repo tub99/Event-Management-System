@@ -6,11 +6,11 @@ app.controller('eventsCtrl', ['$scope', '$state', 'UserService', '$stateParams',
         console.log($stateParams)
         switch (scope.userType) {
             case 'manager':
-                $state.go('.addEvents');
+                $state.go('dashboard.events.addEvents');
                 scope.setActiveEventCtrlState('addEvent');
                 break;
             case 'employee':
-                $state.go('.listofEvents');
+                $state.go('dashboard.events.listofEvents');
                 scope.setActiveEventCtrlState('eventList');
                 break;
         }

@@ -34,7 +34,5 @@ app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
                 templateUrl: './app/views/404.html'
             });
         $urlRouterProvider.otherwise('/404');
-        // $locationProvider.html5Mode(true);
-        // $locationProvider.hashPrefix('!');
     }
 ]);

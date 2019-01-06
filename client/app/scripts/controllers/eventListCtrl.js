@@ -11,13 +11,15 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
             .catch(function (err) { return err; })
 
     }
-
+    var resetEventList = function () {
+        //reset previous active
+        scope.eventList.map(function (event) {
+            event.isActive = false;
+        });
+    }
     scope.onEventSelect = function (currentEvent) {
 
-        //reset previous active
-        for (event in scope.eventList) {
-            scope.eventList[event].isActive = false;
-        }
+        resetEventList();
         currentEvent.isActive = true;
         scope.eventProposedPlaces = currentEvent.proposedPlaces;
         scope.proposedPlace = '';
@@ -28,14 +30,18 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         scope.proposedPlace = place;
     }
 
-    scope.finaliseList = function (place) {
+    scope.proposePlace = function (place) {
         var eventData = {
             place: {
                 locationName: place.locationName,
                 address: place.address
             }
         }
-        EventsService.finalisePlace(scope.selectedEvent._id, eventData);
+        EventsService.proposePlace(eventData, scope.selectedEvent._id).
+            then(function (proposedResp) {
+                alert(proposedResp.message);
+            })
+            .catch(function (err) { alert(err); })
     }
 
     scope.init();
