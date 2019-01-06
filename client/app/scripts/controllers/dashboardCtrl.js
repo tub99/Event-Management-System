@@ -13,7 +13,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
                 $state.go(".events");
                 scope.setDashboardActiveMode('eventsBtn')
                 break;
-            default: $state.go(".employee");
+            default: $state.go("login");
         }
 
     }
@@ -24,9 +24,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
             toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
             console.log(event, toState, toParams, fromState, fromParams)
         });
-    $rootScope.$on('$stateChangeError', function (event) {
-        $state.go('404');
-    });
+    
 
     scope.setDashboardActiveMode = function (state) {
 

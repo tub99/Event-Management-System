@@ -40,6 +40,10 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         $scope.fpNotification = '';
     }
 
+    $scope.setInput = function (field) {
+        $scope[field]= event.target.value;
+    }
+
     function redirectToDashboard(type) {
         $location.path('/dashboard/' + type).replace();
     }

@@ -33,6 +33,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
                 url: '',
                 templateUrl: './app/views/login.html'
             })
+            .state('default1', {
+                url: '/',
+                templateUrl: './app/views/login.html'
+            })
             .state('404', {
                 url: '/404',
                 templateUrl: './app/views/404.html'
