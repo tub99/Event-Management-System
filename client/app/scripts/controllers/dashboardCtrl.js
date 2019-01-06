@@ -6,14 +6,14 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
-                $state.go(".employee");
+                $state.go(".employee").catch(routeerErrHandler);
                 scope.setDashboardActiveMode('employeeBtn')
                 break;
             case 'employee':
-                $state.go(".events");
+                $state.go(".events").catch(routeerErrHandler);
                 scope.setDashboardActiveMode('eventsBtn')
                 break;
-            default: $state.go(".employee");
+            default: $state.go(".employee").catch(routeerErrHandler);
         }
 
     }
@@ -37,6 +37,11 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
             scope.dashboardStates.employeeBtn = false;
             scope.dashboardStates.eventsBtn = true;
         }
+    }
+
+    function routeerErrHandler(err) {
+        if (err)
+            $state.go('404');
     }
     scope.init();
 }]);

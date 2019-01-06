@@ -4,11 +4,11 @@ app.controller('eventsCtrl', ['$scope', '$state', 'UserService', function (scope
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
-                $state.go('.addEvents');
+                $state.go('.addEvents').catch(routeerErrHandler);
                 scope.setActiveEventCtrlState('addEvent');
                 break;
             case 'employee':
-                $state.go('.listofEvents');
+                $state.go('.listofEvents').catch(routeerErrHandler);
                 scope.setActiveEventCtrlState('eventList');
                 break;
         }
@@ -21,6 +21,11 @@ app.controller('eventsCtrl', ['$scope', '$state', 'UserService', function (scope
             scope.eventsCtrlState.addEvent = false;
             scope.eventsCtrlState.eventList = true;
         }
+    }
+
+    function routeerErrHandler(err) {
+        if (err)
+            $state.go('404');
     }
     scope.init();
 }])
