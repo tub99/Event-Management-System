@@ -77,6 +77,9 @@ class Event {
                             return Callbacks.SuccessWithError(err, res);
                         }
                         if (existinEvent) {
+                            if(existinEvent.isFinalized){
+                                return Callbacks.SuccessWithError('Event already finalized', res);
+                            }
                             existinEvent.proposedPlaces.push(req.body.place);
                             const eventUpdate = {
                                 $set: {

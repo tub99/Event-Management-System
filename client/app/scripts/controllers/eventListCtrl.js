@@ -60,7 +60,10 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 updateProposedPlaces(eventData);
                 scope.selectedEvent.isActive = true;
             })
-            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
+            .catch(function (err) { 
+                scope.init();
+                swal(err.message, "", 'error');
+         })
     }
     scope.finalizeLocation = function () {
         var eventId = scope.selectedEvent._id,
@@ -72,7 +75,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 scope.proposedPlace = '';
                 swal(APP_CONSTANTS.FINALIZE_LOCATION_SUCCESS, "", 'success');
             })
-            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
+            .catch(function (err) { swal(err.message, "", 'error'); })
     }
 
     scope.init();
