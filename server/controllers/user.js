@@ -46,10 +46,12 @@ class User {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
                         }
-                        const userId = user._id;
+                        const userId = user._id,
+                                emailTemplate = `<h3>Hey, ${user.email} please click on the link below to reset your password</h3><a href='${Constants.RESET_PASSWORD_URL}/${userId}'>
+                                Reset Pasword</a>`;
                         Emailer.sendEmail(
                             user.email, Constants.FROM_MAIL, Constants.RESET_PASSWORD_SUBJECT,
-                            '', `<h1> Click on the link below</h1><a href='${Constants.RESET_PASSWORD_URL}/${userId}'> Reset Pasword</a>`
+                            '', emailTemplate
                         ).then(resp=>{
                             console.log('Emailer reponse', resp)
                             const response = user.response();

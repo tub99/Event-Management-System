@@ -62,14 +62,13 @@ class Event {
      * Update Event --> propose place.
      */
     proposePlace(req, res, next) {
-
+        req.assert('place', 'Place is missing').notEmpty();
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
-                
-                const eventId = req.query.eventId;
-
-                if(!eventId || !Utils.isValidObjectId(eventId)){
-                    return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
+                const eventId = req.query.eventId;            
+                const place = req.body.place;
+                if(!eventId || !Utils.isValidObjectId(eventId) || !place){
+                    return Callbacks.ValidationError('Invalid id or place' || 'Validation error', res);
                 } else {
                     EventModel.findOne({
                         _id: new ObjectID(eventId)
@@ -83,7 +82,7 @@ class Event {
                                 $set : {
                                     eventName: existinEvent.eventName,
                                     proposedPlaces: existinEvent.proposedPlaces,
-                                    finalized: existinEvent.finalized
+                                    isFinalized: existinEvent.isFinalized
                                 }
                             };
     
@@ -93,9 +92,12 @@ class Event {
                                 if (err) {
                                     return Callbacks.InternalServerError(err, res);
                                 }
+                                const emailtemplate = `<h1>Hi ${Constants.MANAGER_EMAIL}, a new place , 
+                                ${place.locationName} has been added to the Event, ${existinEvent.eventName}.
+                                </h1><a href='${Constants.APP_REDIRECT_URL}'>Click Here to Goto App</a>`;
                                 Emailer.sendEmail(
                                     Constants.MANAGER_EMAIL, Constants.FROM_MAIL, Constants.EVENT_PLACE_ADDITION_SUBJECT,
-                                    '', `<h1> Click on the link below</h1><a href='${Constants.APP_REDIRECT_URL}'>Goto App</a>`
+                                    '', emailtemplate
                                 ).then(resp=>{
                                     console.log('Emailer reponse', resp)
                                     const response = 'Event : propose place updated successfully!';

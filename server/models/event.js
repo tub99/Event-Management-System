@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const locationSchema = new Schema({
     locationName: { type: String, default: '' },
-    address: { type: String, default: '' }
+    address: { type: String, default: '' },
+    proposedBy: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 const eventSchema = new mongoose.Schema({
     eventName: { type: String, required: true },
