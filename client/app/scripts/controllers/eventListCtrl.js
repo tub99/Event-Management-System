@@ -11,7 +11,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 scope.eventList = events;
                 scope.isEventsLoaded = true;
             })
-            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
+            .catch(function (err) { swal(err.message, "", 'error'); })
 
     }
     var resetEventList = function () {
@@ -62,7 +62,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
             })
             .catch(function (err) { 
                 scope.init();
-                swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error');
+                swal(err.message, "", 'error');
          })
     }
     scope.finalizeLocation = function () {
@@ -75,7 +75,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 scope.proposedPlace = '';
                 swal(APP_CONSTANTS.FINALIZE_LOCATION_SUCCESS, "", 'success');
             })
-            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
+            .catch(function (err) { swal(err.message, "", 'error'); })
     }
 
     scope.init();
