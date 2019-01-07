@@ -24,7 +24,12 @@
     background-color: #eee;
 }
 
+.event-list .finalised:hover{
+    cursor: not-allowed;
+    background-color: #eee;
+}
+
 .event-item:hover{
-    background-color: #CCCCFF;
+    background-color:#E6EDF7;
     color: #000000;
 }
