@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "set NODE_ENV=dev&&npm install&&node server.js",
-    "start-prod": "set NODE_ENV=prod&&npm install&&node server.js",
-    "forever-start-prod": "set NODE_ENV=dev&&npm install&& forever start server.js"
+    "prestart": "mongod --dbpath data --config mongo.conf && node index.js",
+    "start": "node index.js",
+    "start-dev": "set NODE_ENV=dev&&npm install&&node index.js",
+    "start-prod": "set NODE_ENV=prod&&npm install&&node index.js",
+    "forever-start-prod": "set NODE_ENV=dev&&npm install&& forever start index.js"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -25,6 +26,7 @@
     "express-session": "^1.15.5",
     "express-status-monitor": "^1.0.0",
     "express-validator": "^3.2.1",
+    "forever": "^0.15.3",
     "log4js": "^2.3.3",
     "lusca": "^1.5.1",
     "mongoose": "^4.11.7",
