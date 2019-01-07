@@ -65,7 +65,7 @@ mongoose.connection.on('error', (err) => {
 /**
  * Express configuration.
  */
-app.set('port', process.env.PORT || 444);
+app.set('port', process.env.PORT || Constants.PORT);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(expressStatusMonitor());
@@ -76,7 +76,7 @@ app.use(expressValidator());
 app.use(session({
     resave: true,
     saveUninitialized: true,
-    secret:'abc',
+    secret: Constants.MONGO_SECRET,
     store: new MongoStore({
         url: Constants.MONGODB_URI,
         autoReconnect: true,

@@ -1,5 +1,7 @@
 module.exports = {
     MONGODB_URI : 'mongodb://localhost:27017/EventManager',
+    PORT: 444,
+    MONGO_SECRET: 'Mongo_Secret',
     FROM_MAIL:'ghosesoumya001@gmail.com',
     RESET_PASSWORD_URL:'http://localhost:3000/#!/resetPassword',
     RESET_PASSWORD_SUBJECT:'Reset User Password',
