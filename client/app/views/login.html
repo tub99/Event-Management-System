@@ -19,13 +19,13 @@
             <div class="form-group row">
                 <label for="email" class="col-3 col-form-label">Email </label>
                 <div class="col-9">
-                    <input type="email" required ng-model="email" class="form-control" id="email" name="email">
+                    <input type="email" ng-change="setInput('email')" required ng-model="email" class="form-control" id="email" name="email">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="password" class="col-3 col-form-label">Password </label>
                 <div class="col-9">
-                    <input type="password" required ng-model="password" class="form-control" id="password" name="password">
+                    <input type="password"  required ng-change="setInput('password')" ng-model="password" class="form-control" id="password" name="password">
                 </div>
             </div>
 

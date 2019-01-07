@@ -8,14 +8,16 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
             redirectToDashboard();
         }
 
-        //performs user login and sends response data to Userservice to store it to localStorge 
+        //performs user login and sends response data to Userservice to store it to localStorge
+        // TODO: ng-model behaving wierdly, sometimes not giving data hence backup kept (pretty sporadic)
         $scope.doLogin = function () {
-            LoginService.loginUser({ email: $scope.email, password: $scope.password })
+            LoginService.loginUser({ email: $scope["email"] || document.getElementById('email').value
+            , password: $scope["password"] || document.getElementById('password').value})
                 .then(function (resp) {
                     // Adds User Data to storage for persistence from FE
                     UserService.addCurrentUser(resp.data);
                     UserService.addUserToStorage(resp.data);
-                     // if user is authenticated move to dashboard
+                    // if user is authenticated move to dashboard
                     redirectToDashboard(resp.data.userType);
                     swal(APP_CONSTANTS.LOGIN_SUCCESS, "", "success");
                 })
