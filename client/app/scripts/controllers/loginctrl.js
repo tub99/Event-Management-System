@@ -3,7 +3,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
 
         $scope.isfpmode = false;
         $scope.fpNotification = '';
-
+        // if user is authenticated move to dashboard
         if ($scope.isloggedin) {
             redirectToDashboard();
         }
@@ -12,8 +12,10 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         $scope.doLogin = function () {
             LoginService.loginUser({ email: $scope.email, password: $scope.password })
                 .then(function (resp) {
+                    // Adds User Data to storage for persistence from FE
                     UserService.addCurrentUser(resp.data);
                     UserService.addUserToStorage(resp.data);
+                     // if user is authenticated move to dashboard
                     redirectToDashboard(resp.data.userType);
                     swal(APP_CONSTANTS.LOGIN_SUCCESS, "", "success");
                 })
@@ -23,10 +25,11 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         }
 
         $scope.setFpMode = function (bool) {
+            // reset Form Data
             $scope.resetFormdata();
             $scope.isfpmode = bool;
         }
-
+        // reset password 
         $scope.forgotPass = function () {
 
             LoginService.loginUser({ email: $scope.email })
@@ -37,21 +40,21 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
 
                 });
         }
-
+        // resetting the form data
         $scope.resetFormdata = function () {
             $scope.email = '';
             $scope.password = '';
             $scope.fpNotification = '';
         }
-
+        // overcomes ng-model instability
         $scope.setInput = function (field) {
             $scope[field] = event.target.value;
         }
-
+        // logout user 
         $scope.logout = function () {
             UserService.removeUserFromStorage();
         }
-
+        // removing history for back and forth. keeping routes stable throughout app
         function redirectToDashboard(type) {
             $location.path('/dashboard/' + type).replace();
         }

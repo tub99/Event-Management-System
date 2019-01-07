@@ -1,6 +1,6 @@
 app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams', 'UserService', function (scope, $state, $rootScope, $stateParams, UserService) {
 
-
+    // preventing child routes to hinder parent routes
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
             if (fromState.name.indexOf(toState.name)!= -1) {
@@ -9,11 +9,12 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         });
     $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
-
+            // setting the Tab active mode for different types of routes
             scope.userType = UserService.getUserType();
             toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
           
         });
+       // dashboard models 
     scope.dashboardStates = { eventsBtn: false, employeeBtn: true };
 
     //on controller init handes nested route redirection
@@ -23,10 +24,12 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         switch (scope.userType) {
             case 'manager':
                 $state.go('dashboard.employee');
+                 // setting the Tab active mode for different types of routes: manager
                 $state.current.name.indexOf('.events') !== -1 ? scope.setDashboardActiveMode('eventsBtn') : scope.setDashboardActiveMode('employeeBtn')
                 break;
             case 'employee':
                 $state.go("dashboard.events");
+                 // setting the Tab active mode for different types of routes: employee
                 scope.setDashboardActiveMode('eventsBtn');
                 break;
             default:
@@ -47,10 +50,10 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
             scope.dashboardStates.eventsBtn = true;
         }
     }
-
+    // route error handler
     function routeerErrHandler(err) {
         if (err)
-            $state.go('404');
+            $state.go('login');
     }
     scope.init();
 }]);

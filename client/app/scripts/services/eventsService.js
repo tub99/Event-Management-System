@@ -51,6 +51,7 @@ app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataServ
 
     //get Updated Proposed Place
     this.getUpdatedProposedPlaces = function (eventList, event) {
+        // find matching event and return propsed place for that
         var eventFound = eventList.find(function (evt) {
             if (evt._id === event._id) {
                 return event.proposedPlaces;

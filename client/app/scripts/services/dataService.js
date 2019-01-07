@@ -3,6 +3,8 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
     //parses and simplifies response recieved from API calls
     var parseAPIResponse = function (response) {
         var respData = response.data;
+        // parsing custom response
+        // status:1 is OK status:0 is some Error
         if (respData.status === '1' && respData.result) {
             var resp = respData.result;
             return respData;

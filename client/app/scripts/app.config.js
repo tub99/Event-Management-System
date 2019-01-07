@@ -1,3 +1,5 @@
+// middle ware function to act between routes to check user authentication
+// via user existense
 function checkForAuthenticatedUser(UserService, $state, $location) {
     if (UserService.getUserFromStorage()) {
         return true;

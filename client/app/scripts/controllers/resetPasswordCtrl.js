@@ -7,6 +7,7 @@ app.controller('resetPasswordCtrl', ['$scope', '$state', '$location', '$statePar
         LoginService.resetPassword(scope.userId, { password: scope.password })
             .then(function (resp) {
                 return swal(resp.result.message, "", 'success').then(function () {
+                    // removing history track for back and forth
                     $location.path('').replace();
                     $state.go('login');
                 });
