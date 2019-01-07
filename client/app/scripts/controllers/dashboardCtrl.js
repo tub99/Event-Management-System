@@ -12,7 +12,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
 
             scope.userType = UserService.getUserType();
             toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
-            console.log(event, toState, toParams, fromState, fromParams)
+          
         });
     scope.dashboardStates = { eventsBtn: false, employeeBtn: true };
 
