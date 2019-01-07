@@ -18,7 +18,8 @@ Seeding database
 ----------------
 $ npm install -g node-mongo-seeds
 
-From the root of your project:
+Go inside /server directory:
+From your terminal inside /server run "seed"
 
  $ seed
  
