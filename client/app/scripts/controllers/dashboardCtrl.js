@@ -1,5 +1,19 @@
 app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams', 'UserService', function (scope, $state, $rootScope, $stateParams, UserService) {
 
+
+    $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams) {
+            if (fromState.name.indexOf(toState.name)!= -1) {
+                event.preventDefault();
+            }
+        });
+    $rootScope.$on('$stateChangeSuccess',
+        function (event, toState, toParams, fromState, fromParams) {
+
+            scope.userType = UserService.getUserType();
+            toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
+            console.log(event, toState, toParams, fromState, fromParams)
+        });
     scope.dashboardStates = { eventsBtn: false, employeeBtn: true };
 
     scope.init = function () {
@@ -18,13 +32,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         }
 
     }
-    $rootScope.$on('$stateChangeSuccess',
-        function (event, toState, toParams, fromState, fromParams) {
 
-            scope.userType = UserService.getUserType();
-            toState.url.indexOf('employee') > -1 ? scope.setDashboardActiveMode('employeeBtn') : scope.setDashboardActiveMode('eventsBtn');
-            console.log(event, toState, toParams, fromState, fromParams)
-        });
 
 
     scope.setDashboardActiveMode = function (state) {
