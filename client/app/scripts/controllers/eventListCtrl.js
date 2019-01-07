@@ -1,4 +1,4 @@
-app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, EventsService) {
+app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', function (scope, EventsService, UserService) {
 
     scope.eventList = [];
     scope.eventProposedPlaces = [];
@@ -44,7 +44,8 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', function (scope, Eve
         var eventData = {
             place: {
                 locationName: scope.location,
-                address: scope.address
+                address: scope.address,
+                proposedBy: UserService.getUserFromStorage().userId
             }
         }
 

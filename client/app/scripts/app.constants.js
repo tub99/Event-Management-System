@@ -1,7 +1,13 @@
 
 var constants = {
-    SUCCESS_MESSAGE: "Hurray! Successfull",
-    ERROR_MESSAGE: "Ooops! an error occured :(",
+    SUCCESS_MESSAGE: 'Successful!',
+    ERROR_MESSAGE: 'Ooops! an error occured.',
+    LOGIN_SUCCESS:' Login Successful.',
+    LOGIN_ERROR: 'Login Error!',
+    ADD_EMPLOYEE_SUCCESS:'Successfully added Employee',
+    ADD_EMPLOYEE_ERROR: 'Employee Could not be added',
+    PROPOSE_PLACE_SUCCESS: 'Proposed Location Added!',
+    FINALIZE_LOCATION_SUCCESS:'Location Finalized',
     routes: {
         LIST_OF_EVENTS: 'listofEvents',
         ADD_EVENT: 'addEvents'

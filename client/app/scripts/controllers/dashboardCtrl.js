@@ -3,6 +3,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
     scope.dashboardStates = { eventsBtn: false, employeeBtn: true };
 
     scope.init = function () {
+        scope.userEmail = UserService.getUserFromStorage().email;
         scope.userType = UserService.getUserType();
         switch (scope.userType) {
             case 'manager':
