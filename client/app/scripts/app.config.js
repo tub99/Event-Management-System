@@ -1,9 +1,16 @@
+function checkForAuthenticatedUser(UserService, $state, $location) {
+    if (UserService.getUserFromStorage()) {
+        return true;
+    } else {
+        $state.go('login');    
+    }
+}
 
 app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
     function config($qProvider, $stateProvider, $urlRouterProvider) {
 
         $qProvider.errorOnUnhandledRejections(false);
-        
+
         $stateProvider.
             state('login', {
                 url: '',
@@ -15,7 +22,10 @@ app.config(['$qProvider', '$stateProvider', '$urlRouterProvider',
             })
             .state('dashboard', {
                 url: '/dashboard/:userType',
-                templateUrl: './app/views/dashboard.html'
+                templateUrl: './app/views/dashboard.html',
+                resolve: {
+                    resolvedUser: checkForAuthenticatedUser
+                }
             })
             .state('dashboard.employee', {
                 url: '/employee',

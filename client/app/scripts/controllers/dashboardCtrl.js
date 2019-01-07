@@ -28,7 +28,8 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
                 $state.go("dashboard.events");
                 scope.setDashboardActiveMode('eventsBtn');
                 break;
-            default: $state.go("login");
+            default:
+             $state.go("login");
         }
 
     }
