@@ -3,8 +3,14 @@
         <div class="col-md-6 col-12">
             <h2>Event List</h2>
             <h3 class="text-muted" ng-show="eventList.length == 0 && isEventsLoaded"> No Events Added Yet !</h3>
+            <h5 class="text-muted" ng-show="userType === 'manager' && eventList.length>0 && isEventsLoaded">
+                Click on the events to see the Proposed Locations
+            </h5>
+            <h5 class="text-muted" ng-show="userType === 'employee' && eventList.length>0 && isEventsLoaded">
+                Click on the events to Propose a Location
+            </h5>
             <ul class="list-group event-list">
-                <li class="list-group-item" ng-class="{'active':event.isActive,'finalised':event.isFinalized}" ng-click="!event.isFinalized && onEventSelect(event)"
+                <li class="list-group-item event-item" ng-class="{'active':event.isActive,'finalised':event.isFinalized}" ng-click="!event.isFinalized && onEventSelect(event)"
                     ng-repeat="event in eventList">{{event.eventName}}
                     <strong ng-show="event.isFinalized"> : Finalised</strong>
                 </li>

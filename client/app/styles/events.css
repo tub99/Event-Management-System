@@ -24,3 +24,7 @@
     background-color: #eee;
 }
 
+.event-item:hover{
+    background-color: #CCCCFF;
+    color: #000000;
+}

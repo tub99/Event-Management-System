@@ -28,3 +28,7 @@
 .login-container form .offset-2{
     margin-left: 13.666667%;
 }
+
+.login-container form{
+    background-color:#E6EDF7;
+}
