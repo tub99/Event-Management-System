@@ -1,7 +1,5 @@
 app.controller('addEventsCtrl', ['$scope', '$state', 'EventsService','APP_CONSTANTS', function (scope, state, EventsService,constants) {
     scope.eventAddStatus = false;
-    scope.showAlert = false;
-    scope.alertMessage = '';
 
     scope.addAnEvent = function () {
         
@@ -14,9 +12,5 @@ app.controller('addEventsCtrl', ['$scope', '$state', 'EventsService','APP_CONSTA
         });
     }
 
-    scope.displayStatus = function (bool) {
-        scope.showAlert = true;
-        scope.eventAddStatus = bool;
-        scope.alertMessage = bool ? constants.SUCCESS_MESSAGE : constants.ERROR_MESSAGE;
-    }
+  
 }]);
