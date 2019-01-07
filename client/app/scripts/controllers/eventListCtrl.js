@@ -11,7 +11,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 scope.eventList = events;
                 scope.isEventsLoaded = true;
             })
-            .catch(function (err) { swal(err.message, "", 'error'); })
+            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
 
     }
     var resetEventList = function () {
