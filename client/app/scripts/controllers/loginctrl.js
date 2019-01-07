@@ -9,8 +9,9 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
         }
 
         //performs user login and sends response data to Userservice to store it to localStorge
-        // TODO: ng-model behaving wierdly, sometimes not giving data hence backup kept (pretty sporadic)
+       
         $scope.doLogin = function () {
+             // TODO: ng-model behaving wierdly, sometimes not giving data hence backup kept (pretty sporadic)
             LoginService.loginUser({ email: $scope["email"] || document.getElementById('email').value
             , password: $scope["password"] || document.getElementById('password').value})
                 .then(function (resp) {
