@@ -1,12 +1,8 @@
 const crypto = require('crypto');
-const config = require('../config/constants');
 const ObjectID = require('mongodb').ObjectID;
-const BASE64_MARKER = ';base64,';
-const atob = require('atob');
-var mongodb = require("mongodb");
 const fs = require('fs');
 
-
+// generate a salt reqd by md5 algo
 exports.generateSalt = (password) => {
     var set = '0123456789abcd';
     var salt = '';
@@ -17,22 +13,26 @@ exports.generateSalt = (password) => {
     return salt;
 }
 
+// using crypto module to create an md5 hash with digest
 exports.md5 = (str) => {
     return crypto.createHash('md5').update(str).digest('hex');
 }
 
+//encrypt the password by user via a salt and md5 algo
 exports.encryptPassowrd = (password) => {
     var salt = exports.generateSalt();
     var encryptedPassword = (salt + exports.md5(password + salt));
     return encryptedPassword;
 }
 
+// decryption happens via salt extracted from esisting stored password
+// md5 takes that salt and provided password to generate the salt
 exports.decryptPassword = (encrypt, password) => {
     var salt = encrypt.substr(0, 10);
     var decryptedPassword = salt + exports.md5(password + salt);
     return decryptedPassword;
 }
-
+// checking for valid mongo object Id
 exports.isValidObjectId = (_id) => {
     var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
 
@@ -42,7 +42,7 @@ exports.isValidObjectId = (_id) => {
         return true;
     }
 }
-
+// These funcs checks for String/Object/Array
 exports.isString = (value) => {
     return (typeof value === 'string')
 }

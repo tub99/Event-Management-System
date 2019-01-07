@@ -20,7 +20,7 @@ class Event {
     createEvent(req, res, next) {
         req.assert('eventName', 'EventName name missing').notEmpty();
         req.assert('proposedPlaces', 'EventName type missing');
-
+        // validation incoming request data
         req.getValidationResult().then(result => {
 
             if (result.isEmpty()) {
@@ -28,29 +28,33 @@ class Event {
                     eventName: req.body.eventName,
                     proposedPlaces: req.body.proposedPlaces,
                 });
-
+                // check if event with same name exisits
                 EventModel.findOne({
                     eventName: req.body.eventName
                 }, (err, existingEvent) => {
                     if (err) {
+                        // Db error
                         return Callbacks.SuccessWithError(err, res);
                     }
+                    // if exists send an error status:0 with message
                     if (existingEvent) {
                         const response = existingEvent.response();
-                        return Callbacks.SuccessWithData('Event exists with same name', response, res);
+                        return Callbacks.SuccessWithError('Event exists with same name', response, res);
                     }
 
                     // save the event
                     event.save((err) => {
                         console.log('err', err);
                         if (err) {
+                            // Db error while saving
                             return Callbacks.InternalServerError(err, res);
                         }
-                        let response = event.response();
+                        const response = event.response();
                         return Callbacks.SuccessWithData('Event added successfully!', response, res);
                     });
                 });
             } else {
+                // Express request validation error 
                 const errors = result.array();
                 return Callbacks.ValidationError(errors[0].msg || 'Validation error', res);
             }
@@ -62,14 +66,17 @@ class Event {
      * Update Event --> propose place.
      */
     proposePlace(req, res, next) {
+        // employee proposes a place
         req.assert('place', 'Place is missing').notEmpty();
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
                 const eventId = req.query.eventId;
                 const place = req.body.place;
+                // Validate req data
                 if (!eventId || !Utils.isValidObjectId(eventId) || !place) {
                     return Callbacks.ValidationError('Invalid id or place' || 'Validation error', res);
                 } else {
+                    // check for exisiting and update
                     EventModel.findOne({
                         _id: new ObjectID(eventId)
                     }, (err, existinEvent) => {
@@ -77,9 +84,11 @@ class Event {
                             return Callbacks.SuccessWithError(err, res);
                         }
                         if (existinEvent) {
-                            if(existinEvent.isFinalized){
+                            // if event is already finalized return err message
+                            if (existinEvent.isFinalized) {
                                 return Callbacks.SuccessWithError('Event already finalized', res);
                             }
+                            // update proposed places array
                             existinEvent.proposedPlaces.push(req.body.place);
                             const eventUpdate = {
                                 $set: {
@@ -89,15 +98,17 @@ class Event {
                                 }
                             };
 
-                            // save the event
+                            // update the event
                             EventModel.update({ _id: new ObjectID(eventId) }, eventUpdate, function (err, result) {
                                 console.log('err', err);
                                 if (err) {
                                     return Callbacks.InternalServerError(err, res);
                                 }
+                                // mail template 
                                 const emailtemplate = `<h1>Hi ${Constants.MANAGER_EMAIL}, a new place , 
                                 ${place.locationName} has been added to the Event, ${existinEvent.eventName}.
                                 </h1><a href='${Constants.APP_REDIRECT_URL}'>Click Here to Goto App</a>`;
+                                // sending mail via emailer utility function
                                 Emailer.sendEmail(
                                     Constants.MANAGER_EMAIL, Constants.FROM_MAIL, Constants.EVENT_PLACE_ADDITION_SUBJECT,
                                     '', emailtemplate
@@ -129,7 +140,7 @@ class Event {
 
      */
     finalizeEvent(req, res, next) {
-
+        // finalizing a place require eventId and the locId to be finalized
         req.assert('eventId', 'EventId id missing').notEmpty();
         req.assert('locId', 'finalizedLocation Id is missing').notEmpty();
 
@@ -137,9 +148,11 @@ class Event {
             if (result.isEmpty()) {
                 const finalizedLocationId = req.query.locId;
                 const eventId = req.query.eventId;
+                // Validate req data
                 if (!eventId || !Utils.isValidObjectId(eventId) || !Utils.isValidObjectId(finalizedLocationId)) {
                     return Callbacks.ValidationError('Invalid id' || 'Validation error || location not finalized', res);
                 } else {
+                    // check for exisiting and update
                     EventModel.findOne({
                         _id: new ObjectID(eventId)
                     }, (err, existinEvent) => {
@@ -147,7 +160,7 @@ class Event {
                             return Callbacks.SuccessWithError(err, res);
                         }
                         if (existinEvent) {
-
+                            // finalize event via isFinalized=true
                             const eventUpdate = {
                                 $set: {
                                     eventName: existinEvent.eventName,
@@ -157,21 +170,25 @@ class Event {
                                 }
                             };
 
-                            // save the event
+                            // update the event
                             EventModel.update({ _id: new ObjectID(eventId) }, eventUpdate, function (err, result) {
                                 console.log('err', err);
                                 if (err) {
+                                    // DB error
                                     return Callbacks.InternalServerError(err, res);
                                 }
-                                let _response = 'Event : Place Finalized updated successfully!';
-                                return Callbacks.Success(_response, res);
+                                // Finalize success
+                                const response = 'Event : Place Finalized updated successfully!';
+                                return Callbacks.Success(response, res);
                             });
                         } else {
+                            // Event Not existing
                             return Callbacks.SuccessWithError('Event does not exist.', res);
                         }
                     });
                 }
             } else {
+                //Validation error
                 const errors = result.array();
                 return Callbacks.ValidationError(errors[0].msg || 'Validation error', res);
             }
@@ -186,11 +203,12 @@ class Event {
      * Get event by id.
      */
     getEventById(req, res, next) {
-        let eventId = req.params.eventId;
-
+        const eventId = req.params.eventId;
+        // Validation check
         if (!Utils.isValidObjectId(eventId)) {
             return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
         } else {
+            // checking for the particular event via findOne
             EventModel.findOne({
                 _id: new ObjectID(eventId)
             }, (err, existingEvent) => {
@@ -217,6 +235,7 @@ class Event {
             if (err) {
                 return Callbacks.SuccessWithError(err, res);
             }
+            // if no events found return an empty array
             const eventList = events && events.length > 0 ? events : [];
             return Callbacks.SuccessWithData('Events found successfully!', eventList, res);
         });

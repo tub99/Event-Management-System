@@ -1,5 +1,5 @@
 const ErrorCodes = require('../config/errorCodes');
-
+// Utility functions to customize error and Sucessful Responses
 exports.Success = (message, res) => {
     var json = {};
     json.status = '1';

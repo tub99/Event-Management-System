@@ -18,6 +18,7 @@ class User {
      * Create a new employee account.
      */
     signup(req, res, next) {
+        // Validate incoming req data
         req.assert('name', 'name is not required');
         req.assert('email', 'Email is not valid').isEmail();
         req.sanitize('email').normalizeEmail({
@@ -26,15 +27,19 @@ class User {
 
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
+                // find whether user with same email already exists
                 UserModel.findOne({
                     email: req.body.email
                 }, (err, existingUser) => {
                     if (err) {
-                        return Callbacks.SuccessWithError(err, res);
+                        // DB err
+                        return Callbacks.InternalServerError(err, res);
                     }
                     if (existingUser) {
+                        // user with same email already exists: send err
                         return Callbacks.SuccessWithError('Account with that email address already exists.', res);
                     }
+                    // create user and encrypt Password
                     const user = new UserModel({
                         email: req.body.email,
                         password: Utils.encryptPassowrd(req.body.password),
@@ -46,26 +51,30 @@ class User {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
                         }
+                        // create mail templates
                         const userId = user._id,
-                                emailTemplate = `<h3>Hey, ${user.email} please click on the link below to reset your password</h3><a href='${Constants.RESET_PASSWORD_URL}/${userId}'>
+                            emailTemplate = `<h3>Hey, ${user.email} please click on the link below to reset your password</h3><a href='${Constants.RESET_PASSWORD_URL}/${userId}'>
                                 Reset Pasword</a>`;
                         Emailer.sendEmail(
                             user.email, Constants.FROM_MAIL, Constants.RESET_PASSWORD_SUBJECT,
                             '', emailTemplate
-                        ).then(resp=>{
+                        ).then(resp => {
                             console.log('Emailer reponse', resp)
                             const response = user.response();
+                            //User added successfully
                             return Callbacks.SuccessWithData('User added successfully!', response, res);
                         })
-                        .catch(err=>{
-                            return Callbacks.Failed(404,'Couldnt Send mail', res)
-                        })
-                       
+                            .catch(err => {
+                                // Couldnt Send mail
+                                return Callbacks.Failed(404, 'Couldnt Send mail', res)
+                            })
+
 
                     });
                 });
 
             } else {
+                //Req Validation error
                 const errors = result.array();
                 return Callbacks.ValidationError(errors[0].msg || 'Validation error', res);
             }
@@ -77,7 +86,7 @@ class User {
      * Signin user: employee/manager.
      */
     signin(req, res, next) {
-
+        // Validate incoming req data
         req.assert('password', 'Password is required');
         req.sanitize('email').normalizeEmail({
             gmail_remove_dots: false
@@ -87,17 +96,19 @@ class User {
             if (result.isEmpty()) {
                 const email = req.body.email;
                 const password = req.body.password;
-
+                // find whether user with same email  exists or not
                 UserModel.findOne({
                     email: req.body.email
                 }, (err, existingUser) => {
                     if (err || !existingUser) {
+                        // user dosen't exist in DB
                         return Callbacks.SuccessWithError('User not found', res);
                     }
+                    // If employee decrypt and match, for manager plain checking
                     if (existingUser) {
                         const passwordValidation = existingUser.type === 'employee' ?
-                        existingUser.password === Utils.decryptPassword(existingUser.password, password) :
-                        existingUser.password === password;
+                            existingUser.password === Utils.decryptPassword(existingUser.password, password) :
+                            existingUser.password === password;
 
                         if (!passwordValidation) {
                             return Callbacks.SuccessWithError('Password is invalid', res);
@@ -107,6 +118,7 @@ class User {
                     }
                 });
             } else {
+                //Validation error
                 const errors = result.array();
                 return Callbacks.ValidationError(errors[0].msg || 'Validation error', res);
             }
@@ -118,7 +130,7 @@ class User {
       * Update current password.
       */
     resetPassword(req, res, next) {
-
+        // Validate incoming req data
         req.assert('password', 'Password is required');
         req.getValidationResult().then(result => {
             if (result.isEmpty()) {
@@ -126,7 +138,9 @@ class User {
                     if (err) {
                         return Callbacks.InternalServerError(err, res);
                     }
+                    // store updated password in encrypted form
                     user.password = Utils.encryptPassowrd(req.body.password);
+                    user.isPassWordReset = true;
                     user.save((err) => {
                         if (err) {
                             return Callbacks.InternalServerError(err, res);
@@ -135,6 +149,7 @@ class User {
                     });
                 });
             } else {
+                //Validation error
                 const errors = result.array();
                 return Callbacks.ValidationError(errors[0].msg, res);
             }
@@ -148,8 +163,8 @@ class User {
      * Get user by id.
      */
     getUserById(req, res, next) {
-        let userId = req.params.userId;
-
+        const userId = req.params.userId;
+        // Validate incoming  data
         if (!Utils.isValidObjectId(userId)) {
             return Callbacks.ValidationError('Invalid id' || 'Validation error', res);
         } else {
@@ -159,8 +174,9 @@ class User {
                 if (err) {
                     return Callbacks.SuccessWithError(err, res);
                 }
+                // check if user exists or not
                 if (existingUser) {
-                    let _response = existingUser;
+                    const _response = existingUser;
                     return Callbacks.SuccessWithData('User found successfully!', _response, res);
                 } else {
                     return Callbacks.SuccessWithError('User not exists.', res);
@@ -179,12 +195,9 @@ class User {
             if (err) {
                 return Callbacks.SuccessWithError(err, res);
             }
-            if (users && users.length > 0) {
-                let _response = users;
-                return Callbacks.SuccessWithData('Users found successfully!', _response, res);
-            } else {
-                return Callbacks.SuccessWithError('Users not exists.', res);
-            }
+            // if no users found return an empty array
+            const userList = users && users.length > 0 ? users : [];
+            return Callbacks.SuccessWithData('Events found successfully!', userList, res);
         });
     }
 }
