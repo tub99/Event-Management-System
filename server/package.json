@@ -1,10 +1,9 @@
 {
-  "name": "medilearn",
+  "name": "event-manager",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "mongod --dbpath data --config mongo.conf && node index.js",
-    "start": "node index.js",
+    "start": "npm i && node index.js",
     "start-dev": "set NODE_ENV=dev&&npm install&&node index.js",
     "start-prod": "set NODE_ENV=prod&&npm install&&node index.js",
     "forever-start-prod": "set NODE_ENV=dev&&npm install&& forever start index.js"
