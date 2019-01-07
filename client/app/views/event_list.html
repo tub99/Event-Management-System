@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-12">
             <h2>Event List</h2>
-            <h3 class="text-muted" ng-show="eventList.length == 0"> No Events Added Yet !</h3>
+            <h3 class="text-muted" ng-show="eventList.length == 0 && isEventsLoaded"> No Events Added Yet !</h3>
             <ul class="list-group event-list">
                 <li class="list-group-item" ng-class="{'active':event.isActive,'finalised':event.isFinalized}" ng-click="!event.isFinalized && onEventSelect(event)"
                     ng-repeat="event in eventList">{{event.eventName}}

@@ -13,8 +13,16 @@
   },
   "scripts": {
     "build": "node source_packer && http-server -p 3000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start tests/karma.conf.js"
   },
   "author": "soumya",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "angular-mocks": "^1.7.5",
+    "jasmine-core": "^3.3.0",
+    "karma": "^3.1.4",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-phantomjs-launcher": "^1.0.4"
+  }
 }
