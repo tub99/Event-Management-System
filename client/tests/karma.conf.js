@@ -44,6 +44,7 @@ module.exports = function (config) {
       './controllers/addEventsCtrl.spec.js',
       './controllers/employeeCtrl.spec.js',
       './controllers/dashboardCtrl.spec.js'
+      // './app.config.spec.js'
 
     ],
 
@@ -84,7 +85,7 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJs'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
