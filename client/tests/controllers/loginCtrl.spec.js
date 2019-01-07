@@ -9,7 +9,6 @@ describe('loginCtrl test ->', function () {
 
         $httpBackend = $injector.get('$httpBackend');
         successRespLogin = { status: '1', result: { data: { message: 'success' } } };
-        successRespResetPass = { status: '1', result: { data: { message: 'reset password success' } } };
 
         $rootScope = $injector.get('$rootScope');
         $controller = $injector.get('$controller');
@@ -20,7 +19,7 @@ describe('loginCtrl test ->', function () {
         loginCtrl = createController();
     }));
 
-    // A simple test to verify the UserService factory exists
+    
     it('should exist', function () {
         expect(loginCtrl).toBeDefined();
     });
@@ -34,6 +33,12 @@ describe('loginCtrl test ->', function () {
         $scope.doLogin();
         $httpBackend.flush();
         expect(swal).toHaveBeenCalledWith("Login Success", "", "success")
-    })
+    });
+
+    it('should test setInput', function () {
+        window.event = { target: { value: 'abcd@y.com' } }
+        $scope.setInput('email');
+        expect($scope.email).toEqual(window.event.target.value)
+    });
 
 });

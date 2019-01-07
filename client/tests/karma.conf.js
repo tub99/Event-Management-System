@@ -29,10 +29,14 @@ module.exports = function (config) {
       '../app/scripts/services/loginService.js',
       '../app/scripts/services/employeeService.js',
       '../app/scripts/services/userService.js',
+      '../app/scripts/services/eventsService.js',
       '../app/scripts/controllers/loginCtrl.js',
+      '../app/scripts/controllers/eventListCtrl.js',
       './services/loginService.spec.js',
       './services/userService.spec.js',
-      './controllers/loginCtrl.spec.js'
+      './services/eventsService.spec.js',
+      './controllers/loginCtrl.spec.js',
+      './controllers/eventListCtrl.spec.js'
 
     ],
 

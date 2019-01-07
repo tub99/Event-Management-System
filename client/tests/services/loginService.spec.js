@@ -14,15 +14,6 @@ describe('LoginService service test ->', function () {
         $httpBackend = $injector.get('$httpBackend');
         successRespLogin = { status: '1', result: { data: { message: 'success' } } };
         successRespResetPass = { status: '1', result: { data: { message: 'reset password success' } } };
-
-        // Get hold of a scope (i.e. the root scope)
-        // $rootScope = $injector.get('$rootScope');
-        // // The $controller service is used to create instances of controllers
-        // var $controller = $injector.get('$controller');
-
-        // createController = function() {
-        //   return $controller('MyController', {'$scope' : $rootScope });
-        // };
     }));
 
     afterEach(function () {
@@ -34,6 +25,7 @@ describe('LoginService service test ->', function () {
     it('should exist', function () {
         expect(LoginService).toBeDefined();
     });
+
     it('should test loginUser', function () {
         var obj;
         $httpBackend.when('POST', constants.API.USER.SIGNIN)

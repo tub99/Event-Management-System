@@ -1,7 +1,7 @@
 app.service('EventsService', ['DataService', 'APP_CONSTANTS', function (DataService, APP_CONSTANTS) {
 
     this.events = [];
-    this.events = events;
+    
     this.addEvent = function (eventData) {
         return DataService.postData(APP_CONSTANTS.API.EVENT.CREATE_EVENT, eventData)
             .then(function (eventResp) {
