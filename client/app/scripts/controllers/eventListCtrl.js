@@ -1,12 +1,14 @@
-app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', function (scope, EventsService, UserService) {
+app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_CONSTANTS', function (scope, EventsService, UserService, APP_CONSTANTS) {
 
     scope.eventList = [];
     scope.eventProposedPlaces = [];
     scope.proposedPlace = '';
+    scope.isEventsLoaded = false;
     scope.init = function () {
         EventsService.getEvents().
             then(function (events) {
                 scope.eventList = events;
+                scope.isEventsLoaded = true;
             })
             .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
 
@@ -24,7 +26,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', funct
         updateProposedPlaces = function (eventData) {
             scope.selectedEvent.proposedPlaces.push(eventData.place);
             scope.proposedPlace = scope.selectedEvent.proposedPlaces;
-        }
+        };
 
     scope.onEventSelect = function (currentEvent) {
 
@@ -51,12 +53,12 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', funct
 
         EventsService.proposePlace(eventData, scope.selectedEvent._id).
             then(function (proposedResp) {
-                swal(proposedResp.message, "", 'success');
+                swal(APP_CONSTANTS.PROPOSE_PLACE_SUCCESS, "", 'success');
                 resetModels();
                 updateProposedPlaces(eventData);
                 scope.selectedEvent.isActive = true;
             })
-            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
+            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
     }
     scope.finalizeLocation = function () {
         var eventId = scope.selectedEvent._id,
@@ -65,9 +67,9 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', funct
             then(function (finaliseResp) {
                 scope.init();
                 resetModels();
-                swal(finaliseResp.message, "", 'success');
+                swal(APP_CONSTANTS.FINALIZE_LOCATION_SUCCESS, "", 'success');
             })
-            .catch(function (err) { swal('Oops! Something went wrong!', "", 'error'); })
+            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
     }
 
     scope.init();
