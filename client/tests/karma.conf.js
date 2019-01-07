@@ -32,11 +32,15 @@ module.exports = function (config) {
       '../app/scripts/services/eventsService.js',
       '../app/scripts/controllers/loginCtrl.js',
       '../app/scripts/controllers/eventListCtrl.js',
+      '../app/scripts/controllers/addEventsCtrl.js',
+      '../app/scripts/controllers/employeeCtrl.js',
       './services/loginService.spec.js',
       './services/userService.spec.js',
       './services/eventsService.spec.js',
       './controllers/loginCtrl.spec.js',
-      './controllers/eventListCtrl.spec.js'
+      './controllers/eventListCtrl.spec.js',
+      './controllers/addEventsCtrl.spec.js',
+      './controllers/employeeCtrl.spec.js'
 
     ],
 
@@ -77,7 +81,7 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode

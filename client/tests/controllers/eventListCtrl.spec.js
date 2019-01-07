@@ -1,10 +1,11 @@
 describe('eventListCtrl test ->', function () {
-    var eventListCtrl, $scope, $rootScope, constants, UserService;
+    var eventListCtrl, $scope, $rootScope, constants, UserService, EventsService;
 
     beforeEach(angular.mock.module('eventManagementApp'));
-    beforeEach(inject(function (_UserService_, _APP_CONSTANTS_) {
+    beforeEach(inject(function (_UserService_, _APP_CONSTANTS_, _EventsService_) {
         constants = _APP_CONSTANTS_;
         UserService = _UserService_;
+        EventsService = _EventsService_;
     }));
     beforeEach(inject(function ($injector) {
 
@@ -85,33 +86,32 @@ describe('eventListCtrl test ->', function () {
         spyOn(window, 'swal');
         $scope.location = 'BBQ';
         $scope.address = 'sector5,satlake';
+        spyOn(EventsService, 'proposePlace').and.returnValue({ then: function (data) { return { catch: function (err) { } }; } });
         UserService.addUserToStorage({ userId: 'abc' });
         $scope.selectedEvent = $scope.eventList[0];
-        $httpBackend.when('PUT', constants.API.EVENT.PROPOSE_PLACE + '?eventId=' + $scope.selectedEvent._id)
-            .respond(200, successRespEvntProposal);
-        $httpBackend.when('GET', constants.API.EVENT.EVENT_LIST)
-            .respond(200, successRespEvntProposal);
-        $httpBackend.expectGET(constants.API.EVENT.EVENT_LIST)
+        var eventData = {
+            place: {
+                locationName: $scope.location,
+                address: $scope.address,
+                proposedBy: UserService.getUserFromStorage().userId
+            }
+        }
+        
         $scope.proposeLocation();
-        $httpBackend.flush();
-        expect(swal).toHaveBeenCalledWith('success', '', 'success');
+        expect(EventsService.proposePlace).toHaveBeenCalledWith(eventData, $scope.selectedEvent._id);
     });
 
     it('should test finalizeLocation', function () {
         spyOn(window, 'swal');
         $scope.location = 'BBQ';
         $scope.address = 'sector5,satlake';
+        spyOn(EventsService, 'finaliseLocation').and.returnValue({ then: function (data) { return { catch: function (err) { } }; } });
         UserService.addUserToStorage({ userId: 'abc' });
         $scope.selectedEvent = $scope.eventList[0];
-        $scope.proposedPlace = $scope.selectedEvent;
-        $httpBackend.when('PUT', constants.API.EVENT.FINALIZE_LOCATION + '?eventId=' + $scope.selectedEvent._id + '&locId=' + $scope.proposedPlace._id)
-            .respond(200, successRespEvntFinalise);
-        $httpBackend.when('GET', constants.API.EVENT.EVENT_LIST)
-            .respond(200, successRespEvnt);
-        $httpBackend.expectGET(constants.API.EVENT.EVENT_LIST)
+        $scope.proposedPlace = $scope.selectedEvent.proposedPlaces[0];
+
         $scope.finalizeLocation();
-        $httpBackend.flush();
-        expect(swal).toHaveBeenCalledWith('success', '', 'success');
+        expect(EventsService.finaliseLocation).toHaveBeenCalledWith($scope.selectedEvent._id, $scope.proposedPlace._id);
     });
 
 

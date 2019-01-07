@@ -32,7 +32,7 @@ describe('loginCtrl test ->', function () {
         $scope.password = 'abcd';
         $scope.doLogin();
         $httpBackend.flush();
-        expect(swal).toHaveBeenCalledWith("Login Success", "", "success")
+        expect(swal).toHaveBeenCalledWith(constants.LOGIN_SUCCESS, "", "success")
     });
 
     it('should test setInput', function () {
