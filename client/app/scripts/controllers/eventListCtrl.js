@@ -4,6 +4,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
     scope.eventProposedPlaces = [];
     scope.proposedPlace = '';
     scope.isEventsLoaded = false;
+    scope.isFinalized = false;
     scope.init = function () {
         EventsService.getEvents().
             then(function (events) {
@@ -35,6 +36,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
         scope.eventProposedPlaces = currentEvent.proposedPlaces;
         scope.proposedPlace = '';
         scope.selectedEvent = currentEvent;
+        scope.isFinalized = false;
         resetModels();
     }
 
@@ -67,6 +69,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
             then(function (finaliseResp) {
                 scope.init();
                 resetModels();
+                scope.proposedPlace = '';
                 swal(APP_CONSTANTS.FINALIZE_LOCATION_SUCCESS, "", 'success');
             })
             .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })

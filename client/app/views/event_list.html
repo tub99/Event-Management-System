@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div ng-show="userType === 'manager'" class="col-md-6 col-12">
-            <div ng-show="selectedEvent" class="location-container">
+            <div ng-show="selectedEvent && eventProposedPlaces.length>0" class="location-container">
                 <h2>Proposed Locations</h2>
                 <div class="input-group mb-3" ng-repeat="place in eventProposedPlaces">
                     <div class="input-group-prepend">
