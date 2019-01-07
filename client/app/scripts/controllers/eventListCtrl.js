@@ -50,6 +50,7 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', 'APP_
         scope.selectedEvent = currentEvent;
         scope.isFinalized = false;
         resetModels();
+        scope.init();
     }
 
     scope.selectPlace = function (place) {

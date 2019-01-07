@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-6 col-12">
             <h2 class="event-header">Event List</h2>
-            <button type="button" title="Check for Updates!" ng-click="init()"class="btn btn-info btn-sm update-list-btn">
-                Update List
+            <button type="button" title="Check for Updates! Do not have to refresh browser" ng-click="init()" class="btn btn-info btn-sm update-list-btn">
+                Sync List Updates
             </button>
             <h3 class="text-muted" ng-show="eventList.length == 0 && isEventsLoaded"> No Events Added Yet !</h3>
             <h5 class="text-muted" ng-show="userType === 'manager' && eventList.length>0 && isEventsLoaded">
@@ -40,7 +40,7 @@
             </div>
             <h2 ng-show="selectedEvent && eventProposedPlaces.length == 0" class="pl-fallback text-muted">No Proposed locations yet</h2>
         </div>
-        
+
         <div ng-show="userType === 'employee'" class="col-md-6 col-12 existing-locations">
             <div ng-show="selectedEvent" class="location-container">
                 <h2 ng-show="eventProposedPlaces.length > 0">Existing Locations</h2>
