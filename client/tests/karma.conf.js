@@ -34,13 +34,16 @@ module.exports = function (config) {
       '../app/scripts/controllers/eventListCtrl.js',
       '../app/scripts/controllers/addEventsCtrl.js',
       '../app/scripts/controllers/employeeCtrl.js',
+      '../app/scripts/controllers/dashboardCtrl.js',
+      './services/dataService.spec.js',
       './services/loginService.spec.js',
       './services/userService.spec.js',
       './services/eventsService.spec.js',
       './controllers/loginCtrl.spec.js',
       './controllers/eventListCtrl.spec.js',
       './controllers/addEventsCtrl.spec.js',
-      './controllers/employeeCtrl.spec.js'
+      './controllers/employeeCtrl.spec.js',
+      './controllers/dashboardCtrl.spec.js'
 
     ],
 
