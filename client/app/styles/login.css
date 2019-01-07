@@ -24,3 +24,7 @@
 .login-container #inputPassword.ng-dirty.ng-invalid {
     border: 1px solid red; 
 }
+
+.login-container form .offset-2{
+    margin-left: 13.666667%;
+}
