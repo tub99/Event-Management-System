@@ -1,19 +1,5 @@
-app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_CONSTANTS', function (scope, EventsService, UserService, APP_CONSTANTS) {
+app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', 'APP_CONSTANTS', function (scope, EventsService, UserService, APP_CONSTANTS) {
 
-    scope.eventList = [];
-    scope.eventProposedPlaces = [];
-    scope.proposedPlace = '';
-    scope.isEventsLoaded = false;
-    scope.isFinalized = false;
-    scope.init = function () {
-        EventsService.getEvents().
-            then(function (events) {
-                scope.eventList = events;
-                scope.isEventsLoaded = true;
-            })
-            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
-
-    }
     var resetEventList = function () {
         //reset previous active
         scope.eventList.map(function (event) {
@@ -27,7 +13,33 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
         updateProposedPlaces = function (eventData) {
             scope.selectedEvent.proposedPlaces.push(eventData.place);
             scope.proposedPlace = scope.selectedEvent.proposedPlaces;
+        },
+        activateEvent = function () {
+            scope.eventList.forEach(function (evt) {
+                if (scope.selectedEvent._id === evt._id) {
+                    evt.isActive = true;
+                }
+            });
+
         };
+
+    scope.eventList = [];
+    scope.eventProposedPlaces = [];
+    scope.proposedPlace = '';
+    scope.isEventsLoaded = false;
+    scope.isFinalized = false;
+
+    scope.init = function () {
+        EventsService.getEvents().
+            then(function (events) {
+                scope.eventList = events;
+                scope.isEventsLoaded = true;
+                if (scope.selectedEvent) activateEvent();
+            })
+            .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
+
+    }
+
 
     scope.onEventSelect = function (currentEvent) {
 
@@ -60,10 +72,10 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService','APP_C
                 updateProposedPlaces(eventData);
                 scope.selectedEvent.isActive = true;
             })
-            .catch(function (err) { 
+            .catch(function (err) {
                 scope.init();
                 swal(err.message, "", 'error');
-         })
+            })
     }
     scope.finalizeLocation = function () {
         var eventId = scope.selectedEvent._id,

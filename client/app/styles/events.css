@@ -22,6 +22,7 @@
 .event-list .finalised{
     cursor: not-allowed;
     background-color: #eee;
+    color: #000000;
 }
 
 .event-list .finalised:hover{
@@ -37,4 +38,15 @@
 .pl-fallback{
     margin-top: 36px;
     
+}
+
+.update-list-btn{
+    display: inline;
+    position: relative;
+    margin: 15px;
+    top: -6px;
+}
+
+.event-header{
+    display: inline;
 }

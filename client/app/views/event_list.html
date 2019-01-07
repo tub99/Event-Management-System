@@ -1,7 +1,10 @@
 <div class="container-fluid" ng-controller="eventListCtrl">
     <div class="row">
         <div class="col-md-6 col-12">
-            <h2>Event List</h2>
+            <h2 class="event-header">Event List</h2>
+            <button type="button" title="Check for Updates!" ng-click="init()"class="btn btn-info btn-sm update-list-btn">
+                Update List
+            </button>
             <h3 class="text-muted" ng-show="eventList.length == 0 && isEventsLoaded"> No Events Added Yet !</h3>
             <h5 class="text-muted" ng-show="userType === 'manager' && eventList.length>0 && isEventsLoaded">
                 Click on the events to see the Proposed Locations
