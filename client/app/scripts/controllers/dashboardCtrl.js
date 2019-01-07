@@ -16,6 +16,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
         });
     scope.dashboardStates = { eventsBtn: false, employeeBtn: true };
 
+    //on controller init handes nested route redirection
     scope.init = function () {
         scope.userEmail = UserService.getUserFromStorage().email;
         scope.userType = UserService.getUserType();
@@ -35,7 +36,7 @@ app.controller("dashboardCtrl", ['$scope', '$state', '$rootScope', '$stateParams
     }
 
 
-
+    //switches UI active state of routing buttons 
     scope.setDashboardActiveMode = function (state) {
 
         if (state === 'employeeBtn') {

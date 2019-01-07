@@ -1,7 +1,8 @@
 app.controller('employeeCtrl', ['$scope', 'EmployeeService', 'APP_CONSTANTS', function (scope, EmployeeService, constants) {
 
     scope.employeeAddStatus = false;
-
+    
+    //adds an employee and pushes it to backend using EmployeeService,addEmployee()
     scope.addAnEmployee = function () {
 
         var employeeData = { name: scope.name, email: scope.email, password: scope.password };
@@ -17,6 +18,7 @@ app.controller('employeeCtrl', ['$scope', 'EmployeeService', 'APP_CONSTANTS', fu
         });
     }
 
+    //clears model data 
     function clearFormData() {
         scope.name = '';
         scope.email = '';

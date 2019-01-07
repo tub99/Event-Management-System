@@ -1,9 +1,10 @@
 app.controller('eventsCtrl', ['$scope', '$state', 'UserService', '$stateParams', '$rootScope', 'APP_CONSTANTS', function (scope, $state, UserService, $stateParams, $rootScope, constants) {
     scope.eventsCtrlState = { addEvent: true, eventList: false };
 
+    //handles transition to nested route on controller init
     scope.init = function () {
         scope.userType = UserService.getUserType();
-        console.log($stateParams)
+        
         switch (scope.userType) {
             case 'manager':
                 $state.go('dashboard.events.addEvents');
@@ -15,6 +16,8 @@ app.controller('eventsCtrl', ['$scope', '$state', 'UserService', '$stateParams',
                 break;
         }
     }
+
+    //sets current active state of UI routing buttons
     scope.setActiveEventCtrlState = function (state) {
         if (state === constants.routes.ADD_EVENT) {
             scope.eventsCtrlState.addEvent = true;

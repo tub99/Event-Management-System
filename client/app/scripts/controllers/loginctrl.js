@@ -8,6 +8,7 @@ app.controller('loginCtrl', ['$scope', '$location', 'LoginService', 'UserService
             redirectToDashboard();
         }
 
+        //performs user login and sends response data to Userservice to store it to localStorge 
         $scope.doLogin = function () {
             LoginService.loginUser({ email: $scope.email, password: $scope.password })
                 .then(function (resp) {
