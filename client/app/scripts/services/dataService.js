@@ -1,5 +1,6 @@
 app.service('DataService', ['$http', '$q', function ($http, $q) {
 
+    //parses and simplifies response recieved from API calls
     var parseAPIResponse = function (response) {
         var respData = response.data;
         if (respData.status === '1' && respData.result) {
@@ -10,6 +11,8 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
             throw new Error(respData.result.message);
         }
     }
+
+    // performs POST http call
     this.postData = function (url, data) {
 
 
@@ -22,7 +25,8 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
                 throw err;
             });
     }
-
+    
+    // performs GET http call
     this.getData = function (url) {
 
         return $http.get(url).then(function (response) {
@@ -35,6 +39,7 @@ app.service('DataService', ['$http', '$q', function ($http, $q) {
         });
     }
 
+    // performs PUT http call
     this.putData = function (url, data) {
 
         return $http.put(url, data).then(function (response) {

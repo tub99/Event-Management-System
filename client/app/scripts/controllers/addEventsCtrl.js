@@ -1,6 +1,7 @@
 app.controller('addEventsCtrl', ['$scope', '$state', 'EventsService','APP_CONSTANTS', function (scope, state, EventsService,constants) {
     scope.eventAddStatus = false;
 
+    //adds an event created by manager 
     scope.addAnEvent = function () {
         
         var eventData = { eventName: scope.evName, proposedPlaces: [] };
