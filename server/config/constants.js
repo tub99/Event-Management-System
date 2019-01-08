@@ -1,5 +1,5 @@
 module.exports = {
-    MONGODB_URI : 'mongodb://localhost:27017/EventManager',
+    MONGODB_URI : 'mongodb://somevent:somevent1234@ds145302.mlab.com:45302/event-manager-db',
     PORT: 444,
     MONGO_SECRET: 'Mongo_Secret',
     FROM_MAIL:'ghosesoumya001@gmail.com',
