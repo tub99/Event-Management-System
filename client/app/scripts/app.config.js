@@ -4,6 +4,7 @@ function checkForAuthenticatedUser(UserService, $state, $location) {
     if (UserService.getUserFromStorage()) {
         return true;
     } else {
+        swal('You have been logged out, please Re-Login','','error');
         $state.go('login');    
     }
 }
