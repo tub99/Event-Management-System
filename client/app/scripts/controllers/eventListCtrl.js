@@ -1,5 +1,5 @@
 app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', 'APP_CONSTANTS', function (scope, EventsService, UserService, APP_CONSTANTS) {
-     //reset previous active
+    //reset previous active
     var resetEventList = function () {
         scope.eventList.map(function (event) {
             event.isActive = false;
@@ -15,14 +15,21 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', 'APP_
             scope.selectedEvent.proposedPlaces.push(eventData.place);
             scope.proposedPlace = scope.selectedEvent.proposedPlaces;
         },
-        activateEvent = function () {
-            scope.eventList.forEach(function (evt) {
-                if (scope.selectedEvent._id === evt._id) {
-                    evt.isActive = true;
-                }
-            });
+        updateProposedPlacesOnRefresh = function (eventArr, selectedEvent) {
 
-        };
+            eventArr.map(function (evData) {
+                if (selectedEvent._id === evData._id)
+                    scope.eventProposedPlaces = evData.proposedPlaces;
+            })
+        }
+    activateEvent = function () {
+        scope.eventList.forEach(function (evt) {
+            if (scope.selectedEvent._id === evt._id) {
+                evt.isActive = true;
+            }
+        });
+
+    };
 
     scope.eventList = [];
     scope.eventProposedPlaces = [];
@@ -37,7 +44,10 @@ app.controller('eventListCtrl', ['$scope', 'EventsService', 'UserService', 'APP_
                 scope.eventList = events;
                 scope.isEventsLoaded = true;
                 // Activate currently selected event while refetch data
-                if (scope.selectedEvent) activateEvent();
+                if (scope.selectedEvent) {
+                    activateEvent();
+                    updateProposedPlacesOnRefresh(events, scope.selectedEvent);
+                }
             })
             .catch(function (err) { swal(APP_CONSTANTS.ERROR_MESSAGE, "", 'error'); })
 
